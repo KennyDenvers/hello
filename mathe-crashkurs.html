@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathe-Grundlagen für WiWis</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #8892b0;
+            font-size: 1.1rem;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section h2 {
+            color: #64ffda;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-box {
+            background: rgba(100, 255, 218, 0.1);
+            border-left: 4px solid #64ffda;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .formula {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            text-align: center;
+            margin: 15px 0;
+            color: #ffd700;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-table th {
+            background: rgba(100, 255, 218, 0.2);
+            color: #64ffda;
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .rules-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rules-list li {
+            padding: 12px 15px;
+            margin: 10px 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .rule-number {
+            background: #64ffda;
+            color: #1a1a2e;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .calculator {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .input-group label {
+            color: #8892b0;
+            font-size: 0.9rem;
+        }
+
+        .input-group input {
+            padding: 12px;
+            border: 2px solid rgba(100, 255, 218, 0.3);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 1.1rem;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #64ffda;
+        }
+
+        .result-box {
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.2), rgba(100, 255, 218, 0.1));
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .result-label {
+            color: #8892b0;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            color: #64ffda;
+            font-weight: bold;
+        }
+
+        .result-formula {
+            font-family: 'Courier New', monospace;
+            color: #8892b0;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .practice-section {
+            margin-top: 25px;
+        }
+
+        .practice-section h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .problem {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+        }
+
+        .problem-question {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .problem-input {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .problem-input input {
+            padding: 10px 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 1rem;
+            width: 150px;
+        }
+
+        .check-btn {
+            padding: 10px 20px;
+            background: #64ffda;
+            color: #1a1a2e;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .check-btn:hover {
+            transform: scale(1.05);
+            background: #4cd9b0;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.correct {
+            display: block;
+            background: rgba(100, 255, 150, 0.2);
+            border: 1px solid rgba(100, 255, 150, 0.5);
+            color: #64ff96;
+        }
+
+        .feedback.incorrect {
+            display: block;
+            background: rgba(255, 100, 100, 0.2);
+            border: 1px solid rgba(255, 100, 100, 0.5);
+            color: #ff6464;
+        }
+
+        .cheatsheet {
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+            border: 2px solid #64ffda;
+            font-family: 'Courier New', monospace;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .cheatsheet h3 {
+            color: #64ffda;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .cheatsheet-row {
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(100, 255, 218, 0.3);
+        }
+
+        .cheatsheet-row:last-child {
+            border-bottom: none;
+        }
+
+        .warning-box {
+            background: rgba(255, 100, 100, 0.2);
+            border: 1px solid rgba(255, 100, 100, 0.5);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            color: #ff9999;
+        }
+
+        .analogy {
+            font-style: italic;
+            color: #a0a0a0;
+            padding: 10px 20px;
+            border-left: 3px solid #ffd700;
+            margin: 15px 0;
+        }
+
+        @media (max-width: 600px) {
+            .calc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Mathe-Grundlagen für WiWis</h1>
+            <p class="subtitle">Potenzen, Logarithmen & Zinsrechnung</p>
+        </header>
+
+        <!-- SECTION 1: Powers & Logarithms -->
+        <div class="section">
+            <h2>Potenzen & Logarithmen</h2>
+
+            <div class="concept-box">
+                <strong>Kernidee:</strong> Potenzen und Logarithmen sind Umkehroperationen - wie Multiplikation und Division.
+            </div>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>Operation</th>
+                    <th>Frage</th>
+                    <th>Anwendung</th>
+                </tr>
+                <tr>
+                    <td><strong>Potenz:</strong> 2³ = 8</td>
+                    <td>"Was kommt raus, wenn ich 2 dreimal multipliziere?"</td>
+                    <td>Wachstum berechnen</td>
+                </tr>
+                <tr>
+                    <td><strong>Logarithmus:</strong> log₂(8) = 3</td>
+                    <td>"Wie oft muss ich 2 multiplizieren, um 8 zu bekommen?"</td>
+                    <td>"Wann verdoppelt sich mein Kapital?"</td>
+                </tr>
+            </table>
+
+            <h3 style="color: #64ffda; margin: 25px 0 15px;">Die 3 Regeln, die du brauchst:</h3>
+
+            <ul class="rules-list">
+                <li>
+                    <span class="rule-number">1</span>
+                    <div>
+                        <strong>Potenzregel:</strong>
+                        <div class="formula" style="text-align: left; margin: 10px 0 0;">aᵐ · aⁿ = aᵐ⁺ⁿ</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="rule-number">2</span>
+                    <div>
+                        <strong>Log-Potenzregel:</strong> Der Exponent "fällt runter"
+                        <div class="formula" style="text-align: left; margin: 10px 0 0;">ln(aᵇ) = b · ln(a)</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="rule-number">3</span>
+                    <div>
+                        <strong>Negative Exponenten:</strong> Basis für Abzinsung!
+                        <div class="formula" style="text-align: left; margin: 10px 0 0;">a⁻ⁿ = 1/aⁿ</div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="analogy">
+                Der Logarithmus ist wie ein "Röntgengerät für Exponenten" - er macht den versteckten Exponenten sichtbar.
+            </div>
+
+            <div class="practice-section">
+                <h3>Übung: Potenzen</h3>
+
+                <div class="problem">
+                    <div class="problem-question">
+                        <strong>1.</strong> Vereinfache: 1,05³ · 1,05² = ?
+                    </div>
+                    <div class="problem-input">
+                        <span>1,05</span>
+                        <input type="number" id="power-q1" placeholder="Exponent">
+                        <button class="check-btn" onclick="checkPower1()">Prüfen</button>
+                    </div>
+                    <div class="feedback" id="power-q1-feedback"></div>
+                </div>
+
+                <div class="problem">
+                    <div class="problem-question">
+                        <strong>2.</strong> Wenn 2ˣ = 32, was ist x? (Tipp: 32 = 2⁵)
+                    </div>
+                    <div class="problem-input">
+                        <span>x =</span>
+                        <input type="number" id="power-q2" placeholder="Wert">
+                        <button class="check-btn" onclick="checkPower2()">Prüfen</button>
+                    </div>
+                    <div class="feedback" id="power-q2-feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: Compound Interest -->
+        <div class="section">
+            <h2>Zinseszins & Barwert</h2>
+
+            <div class="concept-box">
+                <strong>Die eine Formel, die alles steuert:</strong>
+                <div class="formula">K(t) = K₀ · (1 + i)ᵗ</div>
+            </div>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>Symbol</th>
+                    <th>Bedeutung</th>
+                    <th>Beispiel</th>
+                </tr>
+                <tr>
+                    <td><strong>K₀</strong></td>
+                    <td>Startkapital</td>
+                    <td>10.000 €</td>
+                </tr>
+                <tr>
+                    <td><strong>i</strong></td>
+                    <td>Zinssatz (als Dezimal!)</td>
+                    <td>5% = 0,05</td>
+                </tr>
+                <tr>
+                    <td><strong>t</strong></td>
+                    <td>Anzahl Perioden</td>
+                    <td>10 Jahre</td>
+                </tr>
+                <tr>
+                    <td><strong>K(t)</strong></td>
+                    <td>Endkapital</td>
+                    <td>?</td>
+                </tr>
+            </table>
+
+            <div class="analogy">
+                Stell dir (1+i) als "Wachstumsfaktor pro Jahr" vor. Bei 5% wächst dein Geld jedes Jahr auf das 1,05-fache - wie ein Schneeball, der beim Rollen immer mehr aufnimmt.
+            </div>
+
+            <h3 style="color: #64ffda; margin: 25px 0 15px;">Interaktiver Rechner</h3>
+
+            <div class="calculator">
+                <div class="calc-grid">
+                    <div class="input-group">
+                        <label>Startkapital K₀ (€)</label>
+                        <input type="number" id="calc-k0" value="10000" oninput="calculate()">
+                    </div>
+                    <div class="input-group">
+                        <label>Zinssatz i (%)</label>
+                        <input type="number" id="calc-i" value="5" step="0.1" oninput="calculate()">
+                    </div>
+                    <div class="input-group">
+                        <label>Laufzeit t (Jahre)</label>
+                        <input type="number" id="calc-t" value="10" oninput="calculate()">
+                    </div>
+                    <div class="input-group">
+                        <label>Modus</label>
+                        <select id="calc-mode" onchange="calculate()" style="padding: 12px; border: 2px solid rgba(100, 255, 218, 0.3); border-radius: 8px; background: rgba(0, 0, 0, 0.3); color: #fff; font-size: 1.1rem;">
+                            <option value="endwert">Endwert berechnen</option>
+                            <option value="barwert">Barwert berechnen</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="result-box">
+                    <div class="result-label" id="result-label">Endkapital K(t)</div>
+                    <div class="result-value" id="result-value">16.288,95 €</div>
+                    <div class="result-formula" id="result-formula">10.000 · 1,05¹⁰ = 16.288,95</div>
+                </div>
+            </div>
+
+            <h3 style="color: #64ffda; margin: 25px 0 15px;">Der kritische Unterschied</h3>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>Zinseszins</th>
+                    <th>Einfache Zinsen</th>
+                </tr>
+                <tr>
+                    <td>K₀ · (1+i)ᵗ</td>
+                    <td>K₀ · (1 + i·t)</td>
+                </tr>
+                <tr>
+                    <td>Exponentiell</td>
+                    <td>Linear</td>
+                </tr>
+                <tr>
+                    <td style="color: #64ffda; font-weight: bold;">10.000 · 1,05¹⁰ = 16.289 €</td>
+                    <td>10.000 · (1 + 0,5) = 15.000 €</td>
+                </tr>
+            </table>
+
+            <div class="concept-box">
+                <strong>Barwert - die Zeitmaschine rückwärts:</strong>
+                <div class="formula">K₀ = K(t) · (1 + i)⁻ᵗ</div>
+                <p style="margin-top: 10px;">"Was muss ich heute anlegen, um in t Jahren K(t) zu haben?"</p>
+            </div>
+
+            <div class="practice-section">
+                <h3>Übung: Zinsrechnung</h3>
+
+                <div class="problem">
+                    <div class="problem-question">
+                        <strong>1.</strong> 5.000 € bei 4% p.a. für 5 Jahre. Endkapital? (auf ganze Euro)
+                    </div>
+                    <div class="problem-input">
+                        <input type="number" id="interest-q1" placeholder="Betrag">
+                        <span>€</span>
+                        <button class="check-btn" onclick="checkInterest1()">Prüfen</button>
+                    </div>
+                    <div class="feedback" id="interest-q1-feedback"></div>
+                </div>
+
+                <div class="problem">
+                    <div class="problem-question">
+                        <strong>2.</strong> Du brauchst in 3 Jahren 10.000 €. Zinssatz 6%. Was musst du heute anlegen? (auf ganze Euro)
+                    </div>
+                    <div class="problem-input">
+                        <input type="number" id="interest-q2" placeholder="Betrag">
+                        <span>€</span>
+                        <button class="check-btn" onclick="checkInterest2()">Prüfen</button>
+                    </div>
+                    <div class="feedback" id="interest-q2-feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHEATSHEET -->
+        <div class="section cheatsheet">
+            <h3>Spickzettel zum Mitnehmen</h3>
+
+            <div class="cheatsheet-row">
+                <strong style="color: #64ffda;">POTENZ ↔ LOGARITHMUS</strong><br>
+                aᵇ = c &nbsp;↔&nbsp; logₐ(c) = b<br>
+                ln(aᵇ) = b · ln(a)
+            </div>
+
+            <div class="cheatsheet-row">
+                <strong style="color: #64ffda;">ZINSESZINS</strong><br>
+                Endwert: &nbsp;K(t) = K₀ · (1+i)ᵗ<br>
+                Barwert: &nbsp;K₀ = K(t) · (1+i)⁻ᵗ
+            </div>
+
+            <div class="warning-box">
+                <strong>NIEMALS:</strong> (1+i·t) statt (1+i)ᵗ verwenden!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Calculator
+        function calculate() {
+            const k0 = parseFloat(document.getElementById('calc-k0').value) || 0;
+            const i = (parseFloat(document.getElementById('calc-i').value) || 0) / 100;
+            const t = parseFloat(document.getElementById('calc-t').value) || 0;
+            const mode = document.getElementById('calc-mode').value;
+
+            let result, label, formula;
+
+            if (mode === 'endwert') {
+                result = k0 * Math.pow(1 + i, t);
+                label = 'Endkapital K(t)';
+                formula = `${k0.toLocaleString('de-DE')} · ${(1+i).toFixed(2)}^${t} = ${result.toLocaleString('de-DE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            } else {
+                result = k0 * Math.pow(1 + i, -t);
+                label = 'Barwert K₀';
+                formula = `${k0.toLocaleString('de-DE')} · ${(1+i).toFixed(2)}^(-${t}) = ${result.toLocaleString('de-DE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            }
+
+            document.getElementById('result-label').textContent = label;
+            document.getElementById('result-value').textContent = result.toLocaleString('de-DE', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' €';
+            document.getElementById('result-formula').textContent = formula;
+        }
+
+        // Power questions
+        function checkPower1() {
+            const answer = parseInt(document.getElementById('power-q1').value);
+            const feedback = document.getElementById('power-q1-feedback');
+
+            if (answer === 5) {
+                feedback.className = 'feedback correct';
+                feedback.textContent = 'Richtig! 1,05³ · 1,05² = 1,05^(3+2) = 1,05⁵ (Exponenten addieren)';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = 'Nicht ganz. Denk an die Regel: aᵐ · aⁿ = aᵐ⁺ⁿ. Also 3 + 2 = ?';
+            }
+        }
+
+        function checkPower2() {
+            const answer = parseInt(document.getElementById('power-q2').value);
+            const feedback = document.getElementById('power-q2-feedback');
+
+            if (answer === 5) {
+                feedback.className = 'feedback correct';
+                feedback.textContent = 'Richtig! 2⁵ = 32, also x = 5';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = 'Nicht ganz. 32 = 2·2·2·2·2 = 2⁵';
+            }
+        }
+
+        // Interest questions
+        function checkInterest1() {
+            const answer = parseInt(document.getElementById('interest-q1').value);
+            const feedback = document.getElementById('interest-q1-feedback');
+            const correct = Math.round(5000 * Math.pow(1.04, 5)); // 6083
+
+            if (Math.abs(answer - correct) <= 5) {
+                feedback.className = 'feedback correct';
+                feedback.textContent = `Richtig! 5.000 · 1,04⁵ = 5.000 · 1,2167 = ${correct.toLocaleString('de-DE')} €`;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = 'Nicht ganz. Formel: K(t) = K₀ · (1+i)ᵗ = 5.000 · 1,04⁵';
+            }
+        }
+
+        function checkInterest2() {
+            const answer = parseInt(document.getElementById('interest-q2').value);
+            const feedback = document.getElementById('interest-q2-feedback');
+            const correct = Math.round(10000 * Math.pow(1.06, -3)); // 8396
+
+            if (Math.abs(answer - correct) <= 5) {
+                feedback.className = 'feedback correct';
+                feedback.textContent = `Richtig! 10.000 · 1,06⁻³ = 10.000 / 1,191 = ${correct.toLocaleString('de-DE')} €`;
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = 'Nicht ganz. Barwert-Formel: K₀ = K(t) · (1+i)⁻ᵗ = 10.000 · 1,06⁻³';
+            }
+        }
+
+        // Initialize calculator
+        calculate();
+    </script>
+</body>
+</html>
