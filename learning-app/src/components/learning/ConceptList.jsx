@@ -10,7 +10,7 @@ const CATEGORY_NAMES = {
 const CATEGORY_ORDER = ['powers', 'logarithms', 'applications'];
 
 function ConceptList({ onSelectConcept, onBack }) {
-  const { isConceptUnlocked, getConceptProgress, getLevelName } = useProficiency();
+  const { isConceptUnlocked, getConceptProgress, getLevelName, getUnlockRequirements } = useProficiency();
 
   const conceptsByCategory = CATEGORY_ORDER.map(category => ({
     category,
@@ -21,7 +21,7 @@ function ConceptList({ onSelectConcept, onBack }) {
   const getStatusClass = (conceptId) => {
     if (!isConceptUnlocked(conceptId)) return 'locked';
     const progress = getConceptProgress(conceptId);
-    if (!progress || progress.attempts.total === 0) return 'locked';
+    if (!progress || progress.attempts.total === 0) return 'new';
     if (progress.levelProgress.mastery.achieved) return 'mastered';
     return 'started';
   };
@@ -35,17 +35,27 @@ function ConceptList({ onSelectConcept, onBack }) {
   };
 
   const getProgressText = (conceptId) => {
-    if (!isConceptUnlocked(conceptId)) {
-      const concept = conceptsData.concepts.find(c => c.id === conceptId);
-      if (concept?.prerequisites.length > 0) {
-        const prereq = conceptsData.concepts.find(c => c.id === concept.prerequisites[0]);
-        return `Erst: ${prereq?.name || 'Voraussetzung'}`;
+    const unlocked = isConceptUnlocked(conceptId);
+
+    if (!unlocked) {
+      const requirements = getUnlockRequirements(conceptId);
+      if (requirements && requirements.length > 0) {
+        const notDone = requirements.filter(r => !r.done);
+        if (notDone.length > 0) {
+          const first = notDone[0];
+          return `Zuerst: ${first.name} (${first.current}/${first.needed} richtig)`;
+        }
       }
       return 'Gesperrt';
     }
+
     const progress = getConceptProgress(conceptId);
-    if (!progress || progress.attempts.total === 0) return 'Noch nicht begonnen';
-    return `Stufe: ${getLevelName(progress.currentLevel)}`;
+    if (!progress || progress.attempts.total === 0) {
+      return 'Bereit zum Starten';
+    }
+
+    const correctRate = Math.round((progress.attempts.correct / progress.attempts.total) * 100);
+    return `${getLevelName(progress.currentLevel)} · ${correctRate}% richtig`;
   };
 
   return (
@@ -55,19 +65,24 @@ function ConceptList({ onSelectConcept, onBack }) {
         <h1>Lernen</h1>
       </header>
 
+      <div style={{ padding: '0 20px 12px', color: '#6b7280', fontSize: 13 }}>
+        Löse Aufgaben eines Konzepts, um das nächste freizuschalten.
+      </div>
+
       {conceptsByCategory.map(({ category, name, concepts }) => (
         <div className="concept-category" key={category}>
           <h2>{name}</h2>
           {concepts.map(concept => {
             const unlocked = isConceptUnlocked(concept.id);
+            const statusClass = getStatusClass(concept.id);
             return (
               <button
                 key={concept.id}
-                className={`concept-card ${getStatusClass(concept.id)}`}
+                className={`concept-card ${statusClass}`}
                 onClick={() => unlocked && onSelectConcept(concept.id)}
                 disabled={!unlocked}
               >
-                <div className={`concept-status ${getStatusClass(concept.id)}`}>
+                <div className={`concept-status ${statusClass}`}>
                   {getStatusIcon(concept.id)}
                 </div>
                 <div className="concept-info">

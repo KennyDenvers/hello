@@ -6,25 +6,167 @@
       "level": "recognition",
       "type": "multiple_choice",
       "prompt": "Was bedeutet 3⁴?",
-      "options": [
-        "3 + 3 + 3 + 3",
-        "3 · 4",
-        "3 · 3 · 3 · 3",
-        "4 · 4 · 4"
-      ],
+      "options": ["3 + 3 + 3 + 3", "3 · 4", "3 · 3 · 3 · 3", "4 · 4 · 4"],
       "correctIndex": 2,
-      "explanation": "3⁴ bedeutet, dass die Basis 3 genau 4-mal mit sich selbst multipliziert wird: 3 · 3 · 3 · 3 = 81"
+      "explanation": "3⁴ bedeutet: Die Basis 3 wird 4-mal mit sich selbst multipliziert: 3 · 3 · 3 · 3 = 81"
     },
     {
       "id": "pow_def_02",
+      "conceptId": "pow_definition",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Was bedeutet 5²?",
+      "options": ["5 + 5", "5 · 2", "5 · 5", "2 · 2 · 2 · 2 · 2"],
+      "correctIndex": 2,
+      "explanation": "5² bedeutet: 5 · 5 = 25. Die Basis 5 wird 2-mal mit sich selbst multipliziert."
+    },
+    {
+      "id": "pow_def_03",
+      "conceptId": "pow_definition",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Bei 2⁵ ist die Basis...",
+      "options": ["5", "2", "10", "32"],
+      "correctIndex": 1,
+      "explanation": "Bei 2⁵ ist 2 die Basis und 5 der Exponent. Die Basis steht unten, der Exponent oben."
+    },
+    {
+      "id": "pow_def_04",
+      "conceptId": "pow_definition",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Bei 4³ ist der Exponent...",
+      "options": ["4", "3", "12", "64"],
+      "correctIndex": 1,
+      "explanation": "Bei 4³ ist 4 die Basis und 3 der Exponent. Der Exponent gibt an, wie oft multipliziert wird."
+    },
+    {
+      "id": "pow_def_05",
+      "conceptId": "pow_definition",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Wie schreibt man '2 mal 2 mal 2' als Potenz?",
+      "options": ["2 + 3", "2 · 3", "2³", "3²"],
+      "correctIndex": 2,
+      "explanation": "2 · 2 · 2 = 2³ (2 hoch 3). Die 2 wird 3-mal multipliziert."
+    },
+    {
+      "id": "pow_def_06",
+      "conceptId": "pow_definition",
+      "level": "comprehension",
+      "type": "multiple_choice",
+      "prompt": "Warum ist 10² = 100?",
+      "options": [
+        "Weil 10 + 2 = 12 und das aufgerundet 100 ergibt",
+        "Weil 10 · 10 = 100 (10 wird 2-mal multipliziert)",
+        "Weil 10 · 2 = 20 und 20 · 5 = 100",
+        "Das ist einfach so definiert"
+      ],
+      "correctIndex": 1,
+      "explanation": "10² = 10 · 10 = 100. Der Exponent 2 sagt: Multipliziere die Basis 10 genau 2-mal mit sich selbst."
+    },
+    {
+      "id": "pow_def_07",
       "conceptId": "pow_definition",
       "level": "application",
       "type": "input",
       "prompt": "Berechne: 2⁵",
       "correctAnswer": "32",
       "acceptedAnswers": ["32"],
-      "hints": ["2⁵ = 2 · 2 · 2 · 2 · 2", "Rechne schrittweise: 2·2=4, 4·2=8, ..."],
+      "hints": ["2⁵ = 2 · 2 · 2 · 2 · 2", "Rechne schrittweise: 2·2=4, 4·2=8, 8·2=16, 16·2=?"],
       "explanation": "2⁵ = 2 · 2 · 2 · 2 · 2 = 32"
+    },
+    {
+      "id": "pow_def_08",
+      "conceptId": "pow_definition",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: 3³",
+      "correctAnswer": "27",
+      "acceptedAnswers": ["27"],
+      "hints": ["3³ = 3 · 3 · 3", "3 · 3 = 9, dann 9 · 3 = ?"],
+      "explanation": "3³ = 3 · 3 · 3 = 27"
+    },
+    {
+      "id": "pow_def_09",
+      "conceptId": "pow_definition",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: 4²",
+      "correctAnswer": "16",
+      "acceptedAnswers": ["16"],
+      "hints": ["4² = 4 · 4"],
+      "explanation": "4² = 4 · 4 = 16"
+    },
+    {
+      "id": "pow_def_10",
+      "conceptId": "pow_definition",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: 10³",
+      "correctAnswer": "1000",
+      "acceptedAnswers": ["1000"],
+      "hints": ["10³ = 10 · 10 · 10", "10 · 10 = 100, dann 100 · 10 = ?"],
+      "explanation": "10³ = 10 · 10 · 10 = 1000"
+    },
+    {
+      "id": "pow_def_11",
+      "conceptId": "pow_definition",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: 5³",
+      "correctAnswer": "125",
+      "acceptedAnswers": ["125"],
+      "hints": ["5³ = 5 · 5 · 5", "5 · 5 = 25, dann 25 · 5 = ?"],
+      "explanation": "5³ = 5 · 5 · 5 = 125"
+    },
+    {
+      "id": "pow_def_12",
+      "conceptId": "pow_definition",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: 2⁴",
+      "correctAnswer": "16",
+      "acceptedAnswers": ["16"],
+      "hints": ["2⁴ = 2 · 2 · 2 · 2"],
+      "explanation": "2⁴ = 2 · 2 · 2 · 2 = 16"
+    },
+    {
+      "id": "pow_def_13",
+      "conceptId": "pow_definition",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: 6²",
+      "correctAnswer": "36",
+      "acceptedAnswers": ["36"],
+      "hints": ["6² = 6 · 6"],
+      "explanation": "6² = 6 · 6 = 36"
+    },
+    {
+      "id": "pow_def_14",
+      "conceptId": "pow_definition",
+      "level": "mastery",
+      "type": "input",
+      "prompt": "Berechne: 2⁶",
+      "correctAnswer": "64",
+      "acceptedAnswers": ["64"],
+      "hints": ["2⁶ = 2⁵ · 2 = 32 · 2"],
+      "explanation": "2⁶ = 64. Tipp: 2⁵ = 32, also 2⁶ = 32 · 2 = 64"
+    },
+    {
+      "id": "pow_def_15",
+      "conceptId": "pow_definition",
+      "level": "mastery",
+      "type": "multiple_choice",
+      "prompt": "1,05² entspricht welchem Zinsszenario?",
+      "options": [
+        "5% Zinsen für 2 Jahre (Zinseszins)",
+        "2% Zinsen für 5 Jahre",
+        "5% + 2% = 7% Zinsen",
+        "5 · 2 = 10% Zinsen"
+      ],
+      "correctIndex": 0,
+      "explanation": "1,05² bedeutet: Das Kapital wird 2 Jahre lang mit Faktor 1,05 (= 5% Zinsen) verzinst. Das ist Zinseszins!"
     },
     {
       "id": "pow_zero_01",
@@ -39,17 +181,70 @@
     {
       "id": "pow_zero_02",
       "conceptId": "pow_zero",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Was ist 100⁰?",
+      "options": ["0", "1", "100", "10000"],
+      "correctIndex": 1,
+      "explanation": "100⁰ = 1. Egal wie groß die Basis ist: Jede Zahl hoch 0 ergibt 1."
+    },
+    {
+      "id": "pow_zero_03",
+      "conceptId": "pow_zero",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Was ist (1,05)⁰?",
+      "options": ["0", "1", "1,05", "0,05"],
+      "correctIndex": 1,
+      "explanation": "(1,05)⁰ = 1. Auch Dezimalzahlen hoch 0 ergeben 1."
+    },
+    {
+      "id": "pow_zero_04",
+      "conceptId": "pow_zero",
       "level": "comprehension",
       "type": "multiple_choice",
-      "prompt": "Warum ist a⁰ = 1?",
+      "prompt": "Warum ist a⁰ = 1 (für a ≠ 0)?",
       "options": [
         "Weil 0 mal a immer 0 ist",
-        "Weil a/a = 1 und a/a = a¹⁻¹ = a⁰",
+        "Weil a¹/a¹ = a⁰ und a¹/a¹ = 1",
         "Das ist eine willkürliche Definition",
         "Weil die Basis 0 wird"
       ],
       "correctIndex": 1,
-      "explanation": "a⁰ = 1 folgt logisch aus der Divisionsregel: a¹/a¹ = a¹⁻¹ = a⁰, aber a¹/a¹ = 1. Also muss a⁰ = 1 sein."
+      "explanation": "a⁰ = 1 folgt aus der Divisionsregel: a¹/a¹ = a¹⁻¹ = a⁰, aber a¹/a¹ = 1. Also muss a⁰ = 1 sein."
+    },
+    {
+      "id": "pow_zero_05",
+      "conceptId": "pow_zero",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: 5⁰",
+      "correctAnswer": "1",
+      "acceptedAnswers": ["1"],
+      "hints": ["Jede Zahl hoch 0 ist..."],
+      "explanation": "5⁰ = 1"
+    },
+    {
+      "id": "pow_zero_06",
+      "conceptId": "pow_zero",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: 999⁰",
+      "correctAnswer": "1",
+      "acceptedAnswers": ["1"],
+      "hints": ["Egal wie groß die Zahl ist: x⁰ = ?"],
+      "explanation": "999⁰ = 1. Jede Zahl hoch 0 ergibt 1."
+    },
+    {
+      "id": "pow_zero_07",
+      "conceptId": "pow_zero",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: 2⁰ + 3⁰ + 4⁰",
+      "correctAnswer": "3",
+      "acceptedAnswers": ["3"],
+      "hints": ["Jede Potenz hoch 0 ist 1", "1 + 1 + 1 = ?"],
+      "explanation": "2⁰ + 3⁰ + 4⁰ = 1 + 1 + 1 = 3"
     },
     {
       "id": "pow_neg_01",
@@ -64,13 +259,85 @@
     {
       "id": "pow_neg_02",
       "conceptId": "pow_negative",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Was bedeutet 5⁻¹?",
+      "options": ["−5", "1/5", "−1", "5"],
+      "correctIndex": 1,
+      "explanation": "5⁻¹ = 1/5. Ein negativer Exponent 'kippt' die Zahl in den Nenner."
+    },
+    {
+      "id": "pow_neg_03",
+      "conceptId": "pow_negative",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Was ist 10⁻¹?",
+      "options": ["−10", "0,1", "−1", "10"],
+      "correctIndex": 1,
+      "explanation": "10⁻¹ = 1/10 = 0,1"
+    },
+    {
+      "id": "pow_neg_04",
+      "conceptId": "pow_negative",
+      "level": "comprehension",
+      "type": "multiple_choice",
+      "prompt": "Warum gilt a⁻ⁿ = 1/aⁿ?",
+      "options": [
+        "Weil negative Zahlen immer Brüche sind",
+        "Weil aⁿ/aⁿ⁺ⁿ = aⁿ⁻²ⁿ = a⁻ⁿ und gleichzeitig aⁿ/a²ⁿ = 1/aⁿ",
+        "Das ist willkürlich so festgelegt",
+        "Weil minus und durch das gleiche sind"
+      ],
+      "correctIndex": 1,
+      "explanation": "Aus der Divisionsregel folgt: a⁻ⁿ = 1/aⁿ. Es ist keine willkürliche Definition!"
+    },
+    {
+      "id": "pow_neg_05",
+      "conceptId": "pow_negative",
       "level": "application",
       "type": "input",
       "prompt": "Berechne: 10⁻²",
       "correctAnswer": "0,01",
       "acceptedAnswers": ["0,01", "0.01", "1/100"],
-      "hints": ["Negativer Exponent = 1 geteilt durch ...", "10⁻² = 1/10²"],
+      "hints": ["10⁻² = 1/10²", "1/100 = ?"],
       "explanation": "10⁻² = 1/10² = 1/100 = 0,01"
+    },
+    {
+      "id": "pow_neg_06",
+      "conceptId": "pow_negative",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: 2⁻²",
+      "correctAnswer": "0,25",
+      "acceptedAnswers": ["0,25", "0.25", "1/4"],
+      "hints": ["2⁻² = 1/2²", "1/4 = ?"],
+      "explanation": "2⁻² = 1/2² = 1/4 = 0,25"
+    },
+    {
+      "id": "pow_neg_07",
+      "conceptId": "pow_negative",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: 10⁻³",
+      "correctAnswer": "0,001",
+      "acceptedAnswers": ["0,001", "0.001", "1/1000"],
+      "hints": ["10⁻³ = 1/10³ = 1/1000"],
+      "explanation": "10⁻³ = 1/1000 = 0,001"
+    },
+    {
+      "id": "pow_neg_08",
+      "conceptId": "pow_negative",
+      "level": "mastery",
+      "type": "multiple_choice",
+      "prompt": "Was bedeutet (1,05)⁻¹⁰ bei Zinsrechnung?",
+      "options": [
+        "10 Jahre mit -5% Zinsen",
+        "Abzinsung über 10 Jahre bei 5% (Barwertfaktor)",
+        "5% Zinsen für 10 Monate",
+        "Das Kapital wird negativ"
+      ],
+      "correctIndex": 1,
+      "explanation": "(1,05)⁻¹⁰ ist der Barwertfaktor: Er rechnet einen zukünftigen Betrag auf heute zurück."
     },
     {
       "id": "pow_prod_01",
@@ -78,47 +345,147 @@
       "level": "recognition",
       "type": "multiple_choice",
       "prompt": "Welche Regel gilt für a³ · a⁵?",
-      "options": [
-        "a³ · a⁵ = a¹⁵",
-        "a³ · a⁵ = a⁸",
-        "a³ · a⁵ = 2a⁸",
-        "a³ · a⁵ = a²"
-      ],
+      "options": ["a³ · a⁵ = a¹⁵", "a³ · a⁵ = a⁸", "a³ · a⁵ = 2a⁸", "a³ · a⁵ = a²"],
       "correctIndex": 1,
       "explanation": "Bei gleicher Basis werden die Exponenten addiert: a³ · a⁵ = a³⁺⁵ = a⁸"
     },
     {
       "id": "pow_prod_02",
       "conceptId": "pow_product_rule",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Was ist 2² · 2³?",
+      "options": ["2⁵", "2⁶", "4⁵", "2² · 2³"],
+      "correctIndex": 0,
+      "explanation": "2² · 2³ = 2²⁺³ = 2⁵. Bei gleicher Basis addiert man die Exponenten."
+    },
+    {
+      "id": "pow_prod_03",
+      "conceptId": "pow_product_rule",
+      "level": "comprehension",
+      "type": "multiple_choice",
+      "prompt": "Warum gilt aᵐ · aⁿ = aᵐ⁺ⁿ?",
+      "options": [
+        "Weil man Exponenten immer addiert",
+        "Weil man insgesamt (m+n) mal die Basis a multipliziert",
+        "Das ist eine willkürliche Regel",
+        "Weil Multiplikation und Addition verwandt sind"
+      ],
+      "correctIndex": 1,
+      "explanation": "aᵐ · aⁿ = (a·a·...m-mal) · (a·a·...n-mal) = a·a·...(m+n)-mal = aᵐ⁺ⁿ"
+    },
+    {
+      "id": "pow_prod_04",
+      "conceptId": "pow_product_rule",
       "level": "application",
       "type": "input",
       "prompt": "Vereinfache: x⁴ · x⁷",
       "correctAnswer": "x¹¹",
       "acceptedAnswers": ["x^11", "x¹¹", "x11"],
-      "hints": ["Gleiche Basis → Exponenten werden ...", "4 + 7 = ?"],
-      "explanation": "Bei gleicher Basis addiert man die Exponenten: x⁴ · x⁷ = x⁴⁺⁷ = x¹¹"
+      "hints": ["Gleiche Basis → Exponenten addieren", "4 + 7 = ?"],
+      "explanation": "x⁴ · x⁷ = x⁴⁺⁷ = x¹¹"
+    },
+    {
+      "id": "pow_prod_05",
+      "conceptId": "pow_product_rule",
+      "level": "application",
+      "type": "input",
+      "prompt": "Vereinfache: 3² · 3⁴",
+      "correctAnswer": "3⁶",
+      "acceptedAnswers": ["3^6", "3⁶", "729"],
+      "hints": ["Gleiche Basis (3) → Exponenten addieren"],
+      "explanation": "3² · 3⁴ = 3²⁺⁴ = 3⁶ = 729"
+    },
+    {
+      "id": "pow_prod_06",
+      "conceptId": "pow_product_rule",
+      "level": "application",
+      "type": "input",
+      "prompt": "Vereinfache: 10² · 10³",
+      "correctAnswer": "10⁵",
+      "acceptedAnswers": ["10^5", "10⁵", "100000"],
+      "hints": ["2 + 3 = 5"],
+      "explanation": "10² · 10³ = 10⁵ = 100.000"
+    },
+    {
+      "id": "pow_prod_07",
+      "conceptId": "pow_product_rule",
+      "level": "mastery",
+      "type": "input",
+      "prompt": "Vereinfache: 2³ · 2⁴ · 2²",
+      "correctAnswer": "2⁹",
+      "acceptedAnswers": ["2^9", "2⁹", "512"],
+      "hints": ["Alle drei Exponenten addieren: 3 + 4 + 2 = ?"],
+      "explanation": "2³ · 2⁴ · 2² = 2³⁺⁴⁺² = 2⁹ = 512"
     },
     {
       "id": "pow_quot_01",
+      "conceptId": "pow_quotient_rule",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Was ist a⁸ / a³?",
+      "options": ["a²⁴", "a⁵", "a¹¹", "a⁸/³"],
+      "correctIndex": 1,
+      "explanation": "Bei Division mit gleicher Basis subtrahiert man: a⁸ / a³ = a⁸⁻³ = a⁵"
+    },
+    {
+      "id": "pow_quot_02",
+      "conceptId": "pow_quotient_rule",
+      "level": "comprehension",
+      "type": "multiple_choice",
+      "prompt": "Warum gilt aᵐ / aⁿ = aᵐ⁻ⁿ?",
+      "options": [
+        "Weil man beim Teilen subtrahiert",
+        "Weil sich n Faktoren im Zähler und Nenner kürzen",
+        "Das ist willkürlich festgelegt",
+        "Weil Division das Gegenteil von Multiplikation ist"
+      ],
+      "correctIndex": 1,
+      "explanation": "aᵐ/aⁿ = (a·a·...m-mal)/(a·a·...n-mal). Die n Faktoren im Nenner kürzen sich mit n Faktoren im Zähler."
+    },
+    {
+      "id": "pow_quot_03",
       "conceptId": "pow_quotient_rule",
       "level": "application",
       "type": "input",
       "prompt": "Vereinfache: a⁸ / a³",
       "correctAnswer": "a⁵",
       "acceptedAnswers": ["a^5", "a⁵", "a5"],
-      "hints": ["Division → Exponenten werden ...", "8 − 3 = ?"],
-      "explanation": "Bei Division mit gleicher Basis subtrahiert man die Exponenten: a⁸ / a³ = a⁸⁻³ = a⁵"
+      "hints": ["Division → Exponenten subtrahieren", "8 − 3 = ?"],
+      "explanation": "a⁸ / a³ = a⁸⁻³ = a⁵"
     },
     {
-      "id": "pow_quot_02",
+      "id": "pow_quot_04",
+      "conceptId": "pow_quotient_rule",
+      "level": "application",
+      "type": "input",
+      "prompt": "Vereinfache: 5⁷ / 5⁴",
+      "correctAnswer": "5³",
+      "acceptedAnswers": ["5^3", "5³", "125"],
+      "hints": ["7 − 4 = ?"],
+      "explanation": "5⁷ / 5⁴ = 5⁷⁻⁴ = 5³ = 125"
+    },
+    {
+      "id": "pow_quot_05",
+      "conceptId": "pow_quotient_rule",
+      "level": "application",
+      "type": "input",
+      "prompt": "Vereinfache: 10⁶ / 10²",
+      "correctAnswer": "10⁴",
+      "acceptedAnswers": ["10^4", "10⁴", "10000"],
+      "hints": ["6 − 2 = ?"],
+      "explanation": "10⁶ / 10² = 10⁴ = 10.000"
+    },
+    {
+      "id": "pow_quot_06",
       "conceptId": "pow_quotient_rule",
       "level": "mastery",
       "type": "input",
       "prompt": "Vereinfache: (2⁶ · 2³) / 2⁴",
       "correctAnswer": "2⁵",
       "acceptedAnswers": ["2^5", "2⁵", "32"],
-      "hints": ["Erst den Zähler vereinfachen", "2⁹ / 2⁴ = ?"],
-      "explanation": "Zähler: 2⁶ · 2³ = 2⁹. Dann: 2⁹ / 2⁴ = 2⁹⁻⁴ = 2⁵ = 32"
+      "hints": ["Erst Zähler: 2⁶ · 2³ = 2⁹", "Dann: 2⁹ / 2⁴ = ?"],
+      "explanation": "Zähler: 2⁶ · 2³ = 2⁹. Dann: 2⁹ / 2⁴ = 2⁵ = 32"
     },
     {
       "id": "pow_pow_01",
@@ -128,31 +495,88 @@
       "prompt": "Was ist (a²)³?",
       "options": ["a⁵", "a⁶", "a⁸", "2a³"],
       "correctIndex": 1,
-      "explanation": "Bei einer Potenz einer Potenz multipliziert man die Exponenten: (a²)³ = a²·³ = a⁶"
+      "explanation": "Bei Potenz einer Potenz multipliziert man: (a²)³ = a²·³ = a⁶"
     },
     {
       "id": "pow_pow_02",
+      "conceptId": "pow_power_rule",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Was ist (3²)²?",
+      "options": ["3⁴", "3⁸", "9²", "6²"],
+      "correctIndex": 0,
+      "explanation": "(3²)² = 3²·² = 3⁴ = 81"
+    },
+    {
+      "id": "pow_pow_03",
+      "conceptId": "pow_power_rule",
+      "level": "comprehension",
+      "type": "multiple_choice",
+      "prompt": "Warum gilt (aᵐ)ⁿ = aᵐ·ⁿ?",
+      "options": [
+        "Weil Exponenten immer multipliziert werden",
+        "Weil man aᵐ genau n-mal multipliziert, also m·n Faktoren a hat",
+        "Das ist eine willkürliche Festlegung",
+        "Weil Potenz und Multiplikation verwandt sind"
+      ],
+      "correctIndex": 1,
+      "explanation": "(aᵐ)ⁿ = aᵐ · aᵐ · ... (n-mal) = a^(m+m+...n-mal) = a^(m·n)"
+    },
+    {
+      "id": "pow_pow_04",
       "conceptId": "pow_power_rule",
       "level": "application",
       "type": "input",
       "prompt": "Vereinfache: (x⁵)⁴",
       "correctAnswer": "x²⁰",
       "acceptedAnswers": ["x^20", "x²⁰", "x20"],
-      "hints": ["Potenz einer Potenz: Exponenten werden ...", "5 · 4 = ?"],
+      "hints": ["Exponenten multiplizieren: 5 · 4 = ?"],
       "explanation": "(x⁵)⁴ = x⁵·⁴ = x²⁰"
+    },
+    {
+      "id": "pow_pow_05",
+      "conceptId": "pow_power_rule",
+      "level": "application",
+      "type": "input",
+      "prompt": "Vereinfache: (2³)²",
+      "correctAnswer": "2⁶",
+      "acceptedAnswers": ["2^6", "2⁶", "64"],
+      "hints": ["3 · 2 = ?"],
+      "explanation": "(2³)² = 2⁶ = 64"
+    },
+    {
+      "id": "pow_pow_06",
+      "conceptId": "pow_power_rule",
+      "level": "application",
+      "type": "input",
+      "prompt": "Vereinfache: (10²)³",
+      "correctAnswer": "10⁶",
+      "acceptedAnswers": ["10^6", "10⁶", "1000000"],
+      "hints": ["2 · 3 = ?"],
+      "explanation": "(10²)³ = 10⁶ = 1.000.000"
     },
     {
       "id": "pow_frac_01",
       "conceptId": "pow_fractional",
       "level": "recognition",
       "type": "multiple_choice",
-      "prompt": "Was ist eine andere Schreibweise für √a?",
+      "prompt": "Was ist √a als Potenz geschrieben?",
       "options": ["a²", "a^(1/2)", "a^2", "2a"],
       "correctIndex": 1,
-      "explanation": "Die Quadratwurzel √a entspricht a^(1/2), denn (a^(1/2))² = a¹ = a"
+      "explanation": "√a = a^(1/2). Die Quadratwurzel ist eine Potenz mit Exponent 1/2."
     },
     {
       "id": "pow_frac_02",
+      "conceptId": "pow_fractional",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Was bedeutet 8^(1/3)?",
+      "options": ["8/3", "8 · 3", "³√8 (dritte Wurzel)", "3⁸"],
+      "correctIndex": 2,
+      "explanation": "8^(1/3) = ³√8 = 2. Der Exponent 1/3 bedeutet 'dritte Wurzel'."
+    },
+    {
+      "id": "pow_frac_03",
       "conceptId": "pow_fractional",
       "level": "application",
       "type": "input",
@@ -163,6 +587,28 @@
       "explanation": "27^(1/3) = ³√27 = 3, denn 3³ = 27"
     },
     {
+      "id": "pow_frac_04",
+      "conceptId": "pow_fractional",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: 16^(1/2)",
+      "correctAnswer": "4",
+      "acceptedAnswers": ["4"],
+      "hints": ["16^(1/2) = √16"],
+      "explanation": "16^(1/2) = √16 = 4"
+    },
+    {
+      "id": "pow_frac_05",
+      "conceptId": "pow_fractional",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: 16^(1/4)",
+      "correctAnswer": "2",
+      "acceptedAnswers": ["2"],
+      "hints": ["16^(1/4) = ⁴√16", "2⁴ = 16"],
+      "explanation": "16^(1/4) = ⁴√16 = 2, denn 2⁴ = 16"
+    },
+    {
       "id": "log_def_01",
       "conceptId": "log_definition",
       "level": "recognition",
@@ -170,10 +616,45 @@
       "prompt": "Was ist log₂(8)?",
       "options": ["2", "3", "4", "16"],
       "correctIndex": 1,
-      "explanation": "log₂(8) fragt: '2 hoch was ergibt 8?' Da 2³ = 8, ist log₂(8) = 3"
+      "explanation": "log₂(8) = 3, denn 2³ = 8. Der Logarithmus fragt: '2 hoch was ergibt 8?'"
     },
     {
       "id": "log_def_02",
+      "conceptId": "log_definition",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Was ist log₁₀(100)?",
+      "options": ["1", "2", "10", "100"],
+      "correctIndex": 1,
+      "explanation": "log₁₀(100) = 2, denn 10² = 100"
+    },
+    {
+      "id": "log_def_03",
+      "conceptId": "log_definition",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "log₃(9) = ?",
+      "options": ["2", "3", "6", "27"],
+      "correctIndex": 0,
+      "explanation": "log₃(9) = 2, denn 3² = 9"
+    },
+    {
+      "id": "log_def_04",
+      "conceptId": "log_definition",
+      "level": "comprehension",
+      "type": "multiple_choice",
+      "prompt": "Was bedeutet der Logarithmus?",
+      "options": [
+        "Er multipliziert zwei Zahlen",
+        "Er gibt den Exponenten an: log_b(x) = y bedeutet b^y = x",
+        "Er berechnet die Wurzel",
+        "Er ist das gleiche wie die Potenz"
+      ],
+      "correctIndex": 1,
+      "explanation": "Der Logarithmus ist die Umkehrung der Potenz. Er fragt: 'Welcher Exponent?'"
+    },
+    {
+      "id": "log_def_05",
       "conceptId": "log_definition",
       "level": "application",
       "type": "input",
@@ -182,6 +663,28 @@
       "acceptedAnswers": ["4"],
       "hints": ["10 hoch was ergibt 10000?", "10⁴ = ?"],
       "explanation": "log₁₀(10000) = 4, denn 10⁴ = 10000"
+    },
+    {
+      "id": "log_def_06",
+      "conceptId": "log_definition",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: log₂(16)",
+      "correctAnswer": "4",
+      "acceptedAnswers": ["4"],
+      "hints": ["2 hoch was ergibt 16?"],
+      "explanation": "log₂(16) = 4, denn 2⁴ = 16"
+    },
+    {
+      "id": "log_def_07",
+      "conceptId": "log_definition",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: log₅(25)",
+      "correctAnswer": "2",
+      "acceptedAnswers": ["2"],
+      "hints": ["5 hoch was ergibt 25?"],
+      "explanation": "log₅(25) = 2, denn 5² = 25"
     },
     {
       "id": "log_not_01",
@@ -196,18 +699,86 @@
         "Linearer Logarithmus"
       ],
       "correctIndex": 2,
-      "explanation": "ln steht für den natürlichen Logarithmus, also den Logarithmus zur Basis e ≈ 2,718"
+      "explanation": "ln = natürlicher Logarithmus = Logarithmus zur Basis e ≈ 2,718"
+    },
+    {
+      "id": "log_not_02",
+      "conceptId": "log_notation",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Wofür steht 'lg' oder 'log' (ohne Basis)?",
+      "options": [
+        "Logarithmus zur Basis e",
+        "Logarithmus zur Basis 10",
+        "Logarithmus zur Basis 2",
+        "Kein bestimmter Logarithmus"
+      ],
+      "correctIndex": 1,
+      "explanation": "lg = log₁₀ = Zehnerlogarithmus. Auf dem Taschenrechner meist als 'log'."
+    },
+    {
+      "id": "log_not_03",
+      "conceptId": "log_notation",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: lg(1000)",
+      "correctAnswer": "3",
+      "acceptedAnswers": ["3"],
+      "hints": ["lg = log₁₀", "10³ = ?"],
+      "explanation": "lg(1000) = log₁₀(1000) = 3, denn 10³ = 1000"
     },
     {
       "id": "log_spec_01",
+      "conceptId": "log_special_values",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Was ist log(1) für jede Basis?",
+      "options": ["0", "1", "Die Basis selbst", "Undefiniert"],
+      "correctIndex": 0,
+      "explanation": "log_b(1) = 0 für alle Basen, denn b⁰ = 1"
+    },
+    {
+      "id": "log_spec_02",
+      "conceptId": "log_special_values",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Was ist log_b(b)?",
+      "options": ["0", "1", "b", "b²"],
+      "correctIndex": 1,
+      "explanation": "log_b(b) = 1, denn b¹ = b"
+    },
+    {
+      "id": "log_spec_03",
       "conceptId": "log_special_values",
       "level": "application",
       "type": "input",
       "prompt": "Berechne: ln(e⁵)",
       "correctAnswer": "5",
       "acceptedAnswers": ["5"],
-      "hints": ["ln(eⁿ) = ?", "ln und e sind Umkehrfunktionen"],
-      "explanation": "ln(e⁵) = 5, weil ln und e Umkehrfunktionen sind: ln(eⁿ) = n"
+      "hints": ["ln(eⁿ) = n", "ln und e sind Umkehrfunktionen"],
+      "explanation": "ln(e⁵) = 5"
+    },
+    {
+      "id": "log_spec_04",
+      "conceptId": "log_special_values",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: lg(10)",
+      "correctAnswer": "1",
+      "acceptedAnswers": ["1"],
+      "hints": ["log_b(b) = ?"],
+      "explanation": "lg(10) = log₁₀(10) = 1"
+    },
+    {
+      "id": "log_spec_05",
+      "conceptId": "log_special_values",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: ln(1)",
+      "correctAnswer": "0",
+      "acceptedAnswers": ["0"],
+      "hints": ["log(1) = ? für alle Basen"],
+      "explanation": "ln(1) = 0, denn e⁰ = 1"
     },
     {
       "id": "log_prod_01",
@@ -222,7 +793,7 @@
         "log(a · b) = log(a)/log(b)"
       ],
       "correctIndex": 1,
-      "explanation": "Bei der Multiplikation werden Logarithmen addiert: log(a · b) = log(a) + log(b)"
+      "explanation": "Produktregel: log(a · b) = log(a) + log(b)"
     },
     {
       "id": "log_prod_02",
@@ -232,19 +803,45 @@
       "prompt": "Vereinfache: lg(4) + lg(25)",
       "correctAnswer": "2",
       "acceptedAnswers": ["2"],
-      "hints": ["lg(4) + lg(25) = lg(4 · 25)", "4 · 25 = 100, und lg(100) = ?"],
-      "explanation": "lg(4) + lg(25) = lg(4 · 25) = lg(100) = 2"
+      "hints": ["lg(4) + lg(25) = lg(4 · 25)", "4 · 25 = 100"],
+      "explanation": "lg(4) + lg(25) = lg(100) = 2"
+    },
+    {
+      "id": "log_prod_03",
+      "conceptId": "log_product_rule",
+      "level": "application",
+      "type": "input",
+      "prompt": "Vereinfache: lg(2) + lg(5)",
+      "correctAnswer": "1",
+      "acceptedAnswers": ["1"],
+      "hints": ["2 · 5 = 10", "lg(10) = ?"],
+      "explanation": "lg(2) + lg(5) = lg(10) = 1"
     },
     {
       "id": "log_quot_01",
+      "conceptId": "log_quotient_rule",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Was ist log(a/b)?",
+      "options": [
+        "log(a) / log(b)",
+        "log(a) · log(b)",
+        "log(a) − log(b)",
+        "log(a) + log(b)"
+      ],
+      "correctIndex": 2,
+      "explanation": "Quotientenregel: log(a/b) = log(a) − log(b)"
+    },
+    {
+      "id": "log_quot_02",
       "conceptId": "log_quotient_rule",
       "level": "application",
       "type": "input",
       "prompt": "Vereinfache: lg(1000) − lg(10)",
       "correctAnswer": "2",
       "acceptedAnswers": ["2"],
-      "hints": ["lg(a) − lg(b) = lg(a/b)", "1000/10 = 100, und lg(100) = ?"],
-      "explanation": "lg(1000) − lg(10) = lg(1000/10) = lg(100) = 2"
+      "hints": ["lg(1000/10) = lg(100)"],
+      "explanation": "lg(1000) − lg(10) = lg(100) = 2"
     },
     {
       "id": "log_pow_01",
@@ -252,14 +849,9 @@
       "level": "recognition",
       "type": "multiple_choice",
       "prompt": "Wie kann man log(a³) umschreiben?",
-      "options": [
-        "log(a)³",
-        "3 · log(a)",
-        "log(3a)",
-        "log(a) + 3"
-      ],
+      "options": ["log(a)³", "3 · log(a)", "log(3a)", "log(a) + 3"],
       "correctIndex": 1,
-      "explanation": "Der Exponent wird zum Faktor: log(aⁿ) = n · log(a), also log(a³) = 3 · log(a)"
+      "explanation": "Potenzregel: log(aⁿ) = n · log(a), also log(a³) = 3 · log(a)"
     },
     {
       "id": "log_pow_02",
@@ -269,51 +861,113 @@
       "prompt": "Berechne: lg(10⁷)",
       "correctAnswer": "7",
       "acceptedAnswers": ["7"],
-      "hints": ["lg(10ⁿ) = n · lg(10)", "lg(10) = 1"],
-      "explanation": "lg(10⁷) = 7 · lg(10) = 7 · 1 = 7"
+      "hints": ["lg(10ⁿ) = n · lg(10) = n · 1"],
+      "explanation": "lg(10⁷) = 7 · lg(10) = 7"
+    },
+    {
+      "id": "log_pow_03",
+      "conceptId": "log_power_rule",
+      "level": "application",
+      "type": "input",
+      "prompt": "Berechne: lg(100²)",
+      "correctAnswer": "4",
+      "acceptedAnswers": ["4"],
+      "hints": ["lg(100²) = 2 · lg(100)", "lg(100) = 2"],
+      "explanation": "lg(100²) = 2 · lg(100) = 2 · 2 = 4"
     },
     {
       "id": "log_exp_01",
+      "conceptId": "log_exp_relationship",
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Was ist e^(ln(x))?",
+      "options": ["e · x", "x", "ln(x)", "e^x"],
+      "correctIndex": 1,
+      "explanation": "e^(ln(x)) = x. Die Exponentialfunktion und ln heben sich gegenseitig auf."
+    },
+    {
+      "id": "log_exp_02",
       "conceptId": "log_exp_relationship",
       "level": "application",
       "type": "input",
       "prompt": "Vereinfache: e^(ln(7))",
       "correctAnswer": "7",
       "acceptedAnswers": ["7"],
-      "hints": ["e und ln sind Umkehrfunktionen", "e^(ln(x)) = x"],
-      "explanation": "e^(ln(7)) = 7, weil e und ln Umkehrfunktionen sind."
+      "hints": ["e und ln sind Umkehrfunktionen"],
+      "explanation": "e^(ln(7)) = 7"
+    },
+    {
+      "id": "log_exp_03",
+      "conceptId": "log_exp_relationship",
+      "level": "application",
+      "type": "input",
+      "prompt": "Vereinfache: ln(e⁴)",
+      "correctAnswer": "4",
+      "acceptedAnswers": ["4"],
+      "hints": ["ln(eⁿ) = n"],
+      "explanation": "ln(e⁴) = 4"
     },
     {
       "id": "compound_01",
       "conceptId": "combined_compound_interest",
-      "level": "application",
-      "type": "input",
-      "prompt": "Ein Kapital von 1000€ wird 4 Jahre zu 5% angelegt. Wie hoch ist das Endkapital? (auf ganze Euro runden)",
-      "correctAnswer": "1216",
-      "acceptedAnswers": ["1216", "1216€", "1215", "1215€"],
-      "hints": ["Formel: Kₙ = K₀ · (1+r)ⁿ", "K = 1000 · 1,05⁴"],
-      "explanation": "K = 1000 · 1,05⁴ = 1000 · 1,2155 ≈ 1216€"
+      "level": "recognition",
+      "type": "multiple_choice",
+      "prompt": "Wie lautet die Zinseszinsformel?",
+      "options": [
+        "Kₙ = K₀ + r · n",
+        "Kₙ = K₀ · (1+r)ⁿ",
+        "Kₙ = K₀ · r · n",
+        "Kₙ = K₀ / (1+r)ⁿ"
+      ],
+      "correctIndex": 1,
+      "explanation": "Zinseszinsformel: Kₙ = K₀ · (1+r)ⁿ"
     },
     {
       "id": "compound_02",
       "conceptId": "combined_compound_interest",
+      "level": "application",
+      "type": "input",
+      "prompt": "1000€ zu 5% für 4 Jahre. Endkapital? (ganze Euro)",
+      "correctAnswer": "1216",
+      "acceptedAnswers": ["1216", "1215", "1216€", "1215€"],
+      "hints": ["K = 1000 · 1,05⁴"],
+      "explanation": "K = 1000 · 1,05⁴ ≈ 1216€"
+    },
+    {
+      "id": "compound_03",
+      "conceptId": "combined_compound_interest",
       "level": "mastery",
       "type": "input",
-      "prompt": "Wie lange dauert es, bis sich ein Kapital bei 6% Zinsen verdoppelt? (auf ganze Jahre runden)",
+      "prompt": "Verdopplungszeit bei 6% Zinsen? (ganze Jahre)",
       "correctAnswer": "12",
-      "acceptedAnswers": ["12", "12 Jahre", "11", "12Jahre"],
-      "hints": ["n = ln(2) / ln(1,06)", "Oder die 72er-Regel: 72/6 ≈ ?"],
-      "explanation": "n = ln(2)/ln(1,06) ≈ 11,9 Jahre ≈ 12 Jahre. Schnelle Schätzung: 72/6 = 12"
+      "acceptedAnswers": ["12", "11", "12 Jahre"],
+      "hints": ["n = ln(2)/ln(1,06)", "Oder 72er-Regel: 72/6 = ?"],
+      "explanation": "n ≈ 12 Jahre (72/6 = 12)"
     },
     {
       "id": "growth_01",
       "conceptId": "combined_growth_decay",
       "level": "application",
       "type": "multiple_choice",
-      "prompt": "Eine Investition wächst um 8% pro Jahr. Was ist die ungefähre Verdopplungszeit?",
+      "prompt": "Verdopplungszeit bei 8% Wachstum?",
       "options": ["6 Jahre", "9 Jahre", "12 Jahre", "16 Jahre"],
       "correctIndex": 1,
-      "explanation": "Mit der 72er-Regel: 72/8 = 9 Jahre. Genau: ln(2)/ln(1,08) ≈ 9,0 Jahre"
+      "explanation": "72/8 = 9 Jahre (72er-Regel)"
+    },
+    {
+      "id": "growth_02",
+      "conceptId": "combined_growth_decay",
+      "level": "application",
+      "type": "multiple_choice",
+      "prompt": "Was bedeutet negative Wachstumsrate?",
+      "options": [
+        "Das Kapital wächst schneller",
+        "Das Kapital schrumpft (Zerfall)",
+        "Die Zeit läuft rückwärts",
+        "Ein Rechenfehler"
+      ],
+      "correctIndex": 1,
+      "explanation": "Negative Wachstumsrate = Zerfall/Schrumpfung (z.B. Abschreibung)"
     }
   ]
 }

@@ -366,6 +366,7 @@ body {
 }
 
 .concept-status.locked { background: var(--gray-200); }
+.concept-status.new { background: #dbeafe; }
 .concept-status.started { background: #fef3c7; }
 .concept-status.mastered { background: #dcfce7; }
 

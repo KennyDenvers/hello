@@ -38,10 +38,13 @@ export function useProficiency() {
     const concept = conceptsData.concepts.find(c => c.id === conceptId);
     if (!concept || concept.prerequisites.length === 0) return true;
 
+    // Freischaltung: Voraussetzung braucht nur 2 richtige Antworten
     return concept.prerequisites.every(prereqId => {
       const prereqProgress = progress[prereqId];
       if (!prereqProgress) return false;
-      return prereqProgress.levelProgress.comprehension.achieved;
+      // Entweder "Erkennen" erreicht ODER mindestens 2 richtige Antworten
+      return prereqProgress.levelProgress.recognition.achieved ||
+             prereqProgress.attempts.correct >= 2;
     });
   }, [progress]);
 
@@ -218,6 +221,29 @@ export function useProficiency() {
     return categories;
   }, [progress]);
 
+  const getUnlockRequirements = useCallback((conceptId) => {
+    const concept = conceptsData.concepts.find(c => c.id === conceptId);
+    if (!concept || concept.prerequisites.length === 0) return null;
+
+    const requirements = concept.prerequisites.map(prereqId => {
+      const prereq = conceptsData.concepts.find(c => c.id === prereqId);
+      const prereqProgress = progress[prereqId];
+      const needed = 2;
+      const current = prereqProgress?.attempts.correct || 0;
+      const done = prereqProgress?.levelProgress.recognition.achieved || current >= needed;
+
+      return {
+        conceptId: prereqId,
+        name: prereq?.name || prereqId,
+        current,
+        needed,
+        done
+      };
+    });
+
+    return requirements;
+  }, [progress]);
+
   return {
     progress,
     updateProgress,
@@ -231,6 +257,7 @@ export function useProficiency() {
     resetProgress,
     getLevelName,
     getCategoryProgress,
+    getUnlockRequirements,
     LEVEL_ORDER,
     LEVEL_NAMES
   };
