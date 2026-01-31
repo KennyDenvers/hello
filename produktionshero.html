@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ProduktionsHero - Das Fabrikmanagement-Spiel</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-light: #334155;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --gold: #fbbf24;
+            --silver: #9ca3af;
+            --bronze: #d97706;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 100%);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        /* Header */
+        .game-header {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .logo h1 {
+            font-size: 1.3rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--bg-card-light);
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        .stat-icon {
+            font-size: 1.2rem;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        /* Main Navigation */
+        .main-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .nav-btn {
+            background: var(--bg-card);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 15px 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: var(--text);
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        }
+
+        .nav-icon {
+            font-size: 1.8rem;
+        }
+
+        .nav-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Game Screens */
+        .screen {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--bg-card-light);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Challenge Cards */
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .challenge-card {
+            background: linear-gradient(135deg, var(--bg-card-light), var(--bg-card));
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .challenge-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+        }
+
+        .challenge-card.completed {
+            border-color: var(--secondary);
+        }
+
+        .challenge-card.completed::after {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--secondary);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .challenge-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .challenge-title {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .challenge-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .challenge-reward {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            color: var(--gold);
+        }
+
+        .difficulty {
+            display: flex;
+            gap: 3px;
+            margin-top: 10px;
+        }
+
+        .difficulty-star {
+            color: var(--gold);
+        }
+
+        .difficulty-star.empty {
+            color: var(--bg-card-light);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--bg-card-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: var(--bg-card);
+            z-index: 10;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        /* Theory Box */
+        .theory-box {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(16, 185, 129, 0.1));
+            border-left: 4px solid var(--primary);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .theory-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .formula-box {
+            background: var(--bg-dark);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            font-size: 1.1rem;
+            border: 1px solid var(--bg-card-light);
+        }
+
+        .formula-box .formula {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin: 10px 0;
+        }
+
+        .variable-list {
+            text-align: left;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        /* Quiz Elements */
+        .quiz-question {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .quiz-scenario {
+            background: var(--bg-card-light);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .scenario-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--bg-card-light);
+            border-radius: 10px;
+            background: var(--bg-dark);
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .input-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--secondary), #059669);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--bg-card-light);
+            color: var(--text);
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Feedback */
+        .feedback {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid var(--secondary);
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid var(--danger);
+            display: block;
+        }
+
+        .feedback-icon {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: var(--bg-card-light);
+            border-radius: 10px;
+            height: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        /* Level Badge */
+        .level-badge {
+            background: linear-gradient(135deg, var(--gold), var(--bronze));
+            color: var(--bg-dark);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        /* Factory View */
+        .factory-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .factory-section {
+            background: var(--bg-card-light);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .factory-section:hover {
+            transform: scale(1.05);
+        }
+
+        .factory-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .factory-name {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .factory-status {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .factory-status.good { color: var(--secondary); }
+        .factory-status.warning { color: var(--warning); }
+        .factory-status.bad { color: var(--danger); }
+
+        /* Leaderboard */
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--bg-card-light);
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .rank {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .rank-1 { background: var(--gold); color: var(--bg-dark); }
+        .rank-2 { background: var(--silver); color: var(--bg-dark); }
+        .rank-3 { background: var(--bronze); color: white; }
+        .rank-other { background: var(--bg-card); }
+
+        .player-info {
+            flex: 1;
+        }
+
+        .player-name {
+            font-weight: 600;
+        }
+
+        .player-score {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Achievement */
+        .achievement {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--bg-card-light);
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+
+        .achievement.locked {
+            opacity: 0.5;
+        }
+
+        .achievement-icon {
+            font-size: 2rem;
+            width: 50px;
+            text-align: center;
+        }
+
+        .achievement-info {
+            flex: 1;
+        }
+
+        .achievement-name {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .achievement-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option-btn {
+            padding: 15px;
+            background: var(--bg-card-light);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s;
+            color: var(--text);
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .option-btn.selected {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.2);
+        }
+
+        .option-btn.correct {
+            border-color: var(--secondary);
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .option-btn.incorrect {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 8px;
+            }
+
+            .game-header {
+                padding: 12px 15px;
+            }
+
+            .logo h1 {
+                font-size: 1.1rem;
+            }
+
+            .stats-bar {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .stat {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+
+            .main-nav {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .nav-btn {
+                padding: 10px 5px;
+            }
+
+            .nav-icon {
+                font-size: 1.4rem;
+            }
+
+            .nav-label {
+                font-size: 0.7rem;
+            }
+
+            .challenge-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .modal {
+                margin: 10px;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes celebrate {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.2) rotate(-10deg); }
+            50% { transform: scale(1.2) rotate(10deg); }
+            75% { transform: scale(1.2) rotate(-5deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .celebrate {
+            animation: celebrate 0.5s ease;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s ease;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Encyclopedia */
+        .topic-card {
+            background: var(--bg-card-light);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .topic-card:hover {
+            transform: translateX(5px);
+            background: rgba(37, 99, 235, 0.2);
+        }
+
+        .topic-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .topic-icon {
+            font-size: 1.5rem;
+        }
+
+        .topic-title {
+            font-weight: 600;
+        }
+
+        /* Intro Screen */
+        .intro-screen {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .intro-logo {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .intro-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .intro-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .name-input {
+            max-width: 300px;
+            margin: 0 auto 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Game Header -->
+        <header class="game-header" id="gameHeader" style="display: none;">
+            <div class="logo">
+                <span class="logo-icon">🏭</span>
+                <h1>ProduktionsHero</h1>
+            </div>
+            <div class="stats-bar">
+                <div class="stat">
+                    <span class="stat-icon">⭐</span>
+                    <span class="stat-value" id="totalPoints">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-icon">🔥</span>
+                    <span class="stat-value" id="streak">0</span>
+                </div>
+                <div class="stat">
+                    <span class="level-badge" id="levelBadge">Level 1</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Navigation -->
+        <nav class="main-nav" id="mainNav" style="display: none;">
+            <button class="nav-btn active" data-screen="challenges">
+                <span class="nav-icon">🎯</span>
+                <span class="nav-label">Challenges</span>
+            </button>
+            <button class="nav-btn" data-screen="factory">
+                <span class="nav-icon">🏭</span>
+                <span class="nav-label">Fabrik</span>
+            </button>
+            <button class="nav-btn" data-screen="encyclopedia">
+                <span class="nav-icon">📚</span>
+                <span class="nav-label">Lexikon</span>
+            </button>
+            <button class="nav-btn" data-screen="achievements">
+                <span class="nav-icon">🏆</span>
+                <span class="nav-label">Erfolge</span>
+            </button>
+        </nav>
+
+        <!-- Intro Screen -->
+        <div class="screen active" id="introScreen">
+            <div class="card intro-screen">
+                <div class="intro-logo pulse">🏭</div>
+                <h1 class="intro-title">ProduktionsHero</h1>
+                <p class="intro-subtitle">Werde zum Meister des Produktionsmanagements!</p>
+
+                <div class="name-input">
+                    <input type="text" class="input-field" id="playerName" placeholder="Dein Name" maxlength="20">
+                </div>
+
+                <button class="btn btn-primary btn-block" onclick="startGame()">
+                    🚀 Spiel starten
+                </button>
+
+                <div style="margin-top: 30px; text-align: left;">
+                    <h3 style="margin-bottom: 15px;">Was dich erwartet:</h3>
+                    <div style="display: grid; gap: 10px;">
+                        <div class="topic-card" style="cursor: default;">
+                            <div class="topic-header">
+                                <span class="topic-icon">📊</span>
+                                <span>Losgrößenplanung & EOQ-Formel</span>
+                            </div>
+                        </div>
+                        <div class="topic-card" style="cursor: default;">
+                            <div class="topic-header">
+                                <span class="topic-icon">📦</span>
+                                <span>ABC/XYZ-Analyse</span>
+                            </div>
+                        </div>
+                        <div class="topic-card" style="cursor: default;">
+                            <div class="topic-header">
+                                <span class="topic-icon">🔄</span>
+                                <span>MRP & Bedarfsplanung</span>
+                            </div>
+                        </div>
+                        <div class="topic-card" style="cursor: default;">
+                            <div class="topic-header">
+                                <span class="topic-icon">⏱️</span>
+                                <span>Durchlaufterminierung</span>
+                            </div>
+                        </div>
+                        <div class="topic-card" style="cursor: default;">
+                            <div class="topic-header">
+                                <span class="topic-icon">🌱</span>
+                                <span>Nachhaltige Produktion</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Challenges Screen -->
+        <div class="screen" id="challengesScreen">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🎯 Herausforderungen</h2>
+                    <span id="challengeProgress">0/15</span>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="challengeProgressBar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="challenge-grid" id="challengeGrid">
+                <!-- Challenges werden dynamisch eingefügt -->
+            </div>
+        </div>
+
+        <!-- Factory Screen -->
+        <div class="screen" id="factoryScreen">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🏭 Deine Fabrik</h2>
+                    <span class="level-badge" id="factoryLevel">Stufe 1</span>
+                </div>
+
+                <div class="factory-view">
+                    <div class="factory-section" id="warehouseSection">
+                        <div class="factory-icon">📦</div>
+                        <div class="factory-name">Lager</div>
+                        <div class="factory-status" id="warehouseStatus">Basis</div>
+                    </div>
+                    <div class="factory-section" id="productionSection">
+                        <div class="factory-icon">⚙️</div>
+                        <div class="factory-name">Produktion</div>
+                        <div class="factory-status" id="productionStatus">Basis</div>
+                    </div>
+                    <div class="factory-section" id="planningSection">
+                        <div class="factory-icon">📊</div>
+                        <div class="factory-name">Planung</div>
+                        <div class="factory-status" id="planningStatus">Basis</div>
+                    </div>
+                    <div class="factory-section" id="sustainabilitySection">
+                        <div class="factory-icon">🌱</div>
+                        <div class="factory-name">Nachhaltigkeit</div>
+                        <div class="factory-status" id="sustainabilityStatus">Basis</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; color: var(--text-muted);">
+                    <p>Löse Challenges, um deine Fabrik auszubauen!</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📈 Fabrik-Statistiken</h2>
+                </div>
+                <div style="display: grid; gap: 15px;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Effizienz</span>
+                        <span id="efficiencyStat">0%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="efficiencyBar" style="width: 0%"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Nachhaltigkeit</span>
+                        <span id="sustainabilityStat">0%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="sustainabilityBar" style="width: 0%; background: linear-gradient(90deg, #10b981, #059669);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Encyclopedia Screen -->
+        <div class="screen" id="encyclopediaScreen">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📚 Lexikon</h2>
+                </div>
+                <p style="color: var(--text-muted); margin-bottom: 15px;">
+                    Alle wichtigen Konzepte und Formeln für die Prüfung
+                </p>
+
+                <div id="encyclopediaList">
+                    <!-- Wird dynamisch gefüllt -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements Screen -->
+        <div class="screen" id="achievementsScreen">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🏆 Erfolge</h2>
+                    <span id="achievementCount">0/12</span>
+                </div>
+
+                <div id="achievementList">
+                    <!-- Wird dynamisch gefüllt -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Challenge Modal -->
+    <div class="modal-overlay" id="challengeModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Challenge</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Dynamischer Inhalt -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Encyclopedia Modal -->
+    <div class="modal-overlay" id="encyclopediaModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="encModalTitle">Thema</h3>
+                <button class="modal-close" onclick="closeEncModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="encModalBody">
+                <!-- Dynamischer Inhalt -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Game State
+        let gameState = {
+            playerName: '',
+            points: 0,
+            streak: 0,
+            level: 1,
+            completedChallenges: [],
+            achievements: [],
+            factory: {
+                warehouse: 1,
+                production: 1,
+                planning: 1,
+                sustainability: 1
+            }
+        };
+
+        // Challenges Data
+        const challenges = [
+            // Losgrößenplanung
+            {
+                id: 1,
+                title: "Die Andler-Formel",
+                description: "Berechne die optimale Losgröße",
+                icon: "📊",
+                category: "losgröße",
+                difficulty: 1,
+                reward: 100,
+                theory: {
+                    title: "Die Andler-Formel (EOQ)",
+                    content: "Die Andlersche Losgrößenformel findet das Optimum zwischen Lagerhaltungskosten und Rüst-/Bestellkosten.",
+                    formula: "q* = √(2 × D × K / h)",
+                    variables: [
+                        "q* = Optimale Losgröße",
+                        "D = Jahresbedarf (Stück)",
+                        "K = Rüst-/Bestellkosten pro Auftrag (€)",
+                        "h = Lagerhaltungskosten pro Stück und Jahr (€)"
+                    ]
+                },
+                quiz: {
+                    type: "calculation",
+                    scenario: "Die TechGreen GmbH produziert nachhaltige Smartphones. Der Jahresbedarf beträgt 10.000 Stück. Die Rüstkosten pro Produktionsauftrag betragen 200€. Die Lagerhaltungskosten betragen 5€ pro Stück und Jahr.",
+                    question: "Berechne die optimale Losgröße!",
+                    answer: 894,
+                    tolerance: 10,
+                    hint: "Nutze die Formel: q* = √(2 × D × K / h)"
+                }
+            },
+            {
+                id: 2,
+                title: "Gesamtkosten berechnen",
+                description: "Bestimme die minimalen Gesamtkosten",
+                icon: "💰",
+                category: "losgröße",
+                difficulty: 2,
+                reward: 150,
+                theory: {
+                    title: "Gesamtkosten bei optimaler Losgröße",
+                    content: "Die Gesamtkosten setzen sich aus Lagerkosten und Rüstkosten zusammen. Bei der optimalen Losgröße sind beide Kostenarten gleich hoch!",
+                    formula: "K_ges = √(2 × D × K × h)",
+                    variables: [
+                        "K_ges = Gesamtkosten pro Jahr (€)",
+                        "D = Jahresbedarf",
+                        "K = Rüst-/Bestellkosten",
+                        "h = Lagerhaltungskosten pro Stück/Jahr"
+                    ]
+                },
+                quiz: {
+                    type: "calculation",
+                    scenario: "Ein Unternehmen hat einen Jahresbedarf von 5.000 Stück. Die Bestellkosten betragen 100€ pro Bestellung. Die Lagerhaltungskosten sind 2€ pro Stück und Jahr.",
+                    question: "Wie hoch sind die minimalen Gesamtkosten pro Jahr?",
+                    answer: 1414,
+                    tolerance: 20,
+                    hint: "K_ges = √(2 × 5000 × 100 × 2)"
+                }
+            },
+            {
+                id: 3,
+                title: "Bestellhäufigkeit",
+                description: "Wie oft sollte bestellt werden?",
+                icon: "📅",
+                category: "losgröße",
+                difficulty: 1,
+                reward: 100,
+                theory: {
+                    title: "Optimale Bestellhäufigkeit",
+                    content: "Die Bestellhäufigkeit ergibt sich aus dem Jahresbedarf geteilt durch die optimale Losgröße.",
+                    formula: "n = D / q*",
+                    variables: [
+                        "n = Anzahl Bestellungen pro Jahr",
+                        "D = Jahresbedarf",
+                        "q* = Optimale Losgröße"
+                    ]
+                },
+                quiz: {
+                    type: "calculation",
+                    scenario: "Der Jahresbedarf beträgt 12.000 Stück. Die optimale Losgröße wurde mit 1.000 Stück berechnet.",
+                    question: "Wie oft muss pro Jahr bestellt werden?",
+                    answer: 12,
+                    tolerance: 0,
+                    hint: "Teile den Jahresbedarf durch die Losgröße"
+                }
+            },
+            // ABC-Analyse
+            {
+                id: 4,
+                title: "ABC-Klassifikation",
+                description: "Ordne Artikel den richtigen Klassen zu",
+                icon: "🔤",
+                category: "abc",
+                difficulty: 1,
+                reward: 100,
+                theory: {
+                    title: "ABC-Analyse",
+                    content: "Die ABC-Analyse klassifiziert Artikel nach ihrer Wertigkeit. Sie basiert auf dem Pareto-Prinzip (80/20-Regel).",
+                    formula: "A: ~70-80% Wert, ~10-20% Menge\nB: ~15-20% Wert, ~20-30% Menge\nC: ~5-10% Wert, ~50-70% Menge",
+                    variables: [
+                        "A-Artikel: Hoher Wert, geringe Menge → intensive Betreuung",
+                        "B-Artikel: Mittlerer Wert → normale Betreuung",
+                        "C-Artikel: Geringer Wert, hohe Menge → vereinfachte Betreuung"
+                    ]
+                },
+                quiz: {
+                    type: "multipleChoice",
+                    scenario: "In einem Lager befinden sich 1.000 verschiedene Artikel. 100 Artikel machen 75% des Gesamtwertes aus.",
+                    question: "Zu welcher Kategorie gehören diese 100 Artikel?",
+                    options: ["A-Artikel", "B-Artikel", "C-Artikel", "Keine Kategorie"],
+                    correctIndex: 0,
+                    explanation: "A-Artikel machen typischerweise nur 10-20% der Artikelanzahl aus, repräsentieren aber 70-80% des Wertes."
+                }
+            },
+            {
+                id: 5,
+                title: "XYZ-Verbrauchsmuster",
+                description: "Verstehe Verbrauchsschwankungen",
+                icon: "📈",
+                category: "abc",
+                difficulty: 2,
+                reward: 150,
+                theory: {
+                    title: "XYZ-Analyse",
+                    content: "Die XYZ-Analyse klassifiziert Artikel nach der Vorhersagbarkeit ihres Verbrauchs.",
+                    formula: "Variationskoeffizient: V = σ / μ × 100%",
+                    variables: [
+                        "X-Teile: V < 25% → konstanter Verbrauch, gut planbar",
+                        "Y-Teile: V 25-50% → schwankender Verbrauch, bedingt planbar",
+                        "Z-Teile: V > 50% → unregelmäßiger Verbrauch, schwer planbar"
+                    ]
+                },
+                quiz: {
+                    type: "multipleChoice",
+                    scenario: "Ein Artikel hat folgende monatliche Verbräuche: 100, 105, 98, 102, 99, 101. Der Variationskoeffizient beträgt etwa 2%.",
+                    question: "Wie wird dieser Artikel klassifiziert?",
+                    options: ["X-Teil", "Y-Teil", "Z-Teil", "Nicht klassifizierbar"],
+                    correctIndex: 0,
+                    explanation: "Mit einem Variationskoeffizienten von nur 2% (<25%) ist der Verbrauch sehr konstant → X-Teil."
+                }
+            },
+            {
+                id: 6,
+                title: "ABC/XYZ-Matrix",
+                description: "Kombiniere beide Analysen",
+                icon: "🎯",
+                category: "abc",
+                difficulty: 3,
+                reward: 200,
+                theory: {
+                    title: "Kombinierte ABC/XYZ-Matrix",
+                    content: "Die Kombination beider Analysen ergibt eine 3×3-Matrix für optimale Dispositionsstrategien.",
+                    formula: "9 Kombinationen: AX, AY, AZ, BX, BY, BZ, CX, CY, CZ",
+                    variables: [
+                        "AX/BX: Hoher Wert + planbar → Just-in-Time",
+                        "AZ/BZ: Hoher Wert + unplanbar → Sicherheitsbestand",
+                        "CX: Geringer Wert + planbar → automatische Disposition",
+                        "CZ: Geringer Wert + unplanbar → hoher Bestand oder Auslauf"
+                    ]
+                },
+                quiz: {
+                    type: "multipleChoice",
+                    scenario: "Artikel X ist ein A-Artikel mit konstantem Verbrauch (X-Klassifikation). Das Unternehmen möchte die Beschaffungsstrategie optimieren.",
+                    question: "Welche Beschaffungsstrategie ist optimal?",
+                    options: ["Just-in-Time Beschaffung", "Großer Sicherheitsbestand", "Einzelbeschaffung bei Bedarf", "Jahresvorrat einkaufen"],
+                    correctIndex: 0,
+                    explanation: "AX-Artikel haben hohen Wert und planbaren Verbrauch - ideal für Just-in-Time, um Lagerkosten zu minimieren."
+                }
+            },
+            // MRP & Bedarfsplanung
+            {
+                id: 7,
+                title: "Primär- vs. Sekundärbedarf",
+                description: "Verstehe die Bedarfsarten",
+                icon: "📦",
+                category: "mrp",
+                difficulty: 1,
+                reward: 100,
+                theory: {
+                    title: "Bedarfsarten",
+                    content: "Die Bedarfsplanung unterscheidet verschiedene Bedarfsarten.",
+                    formula: "Primärbedarf → Sekundärbedarf → Tertiärbedarf",
+                    variables: [
+                        "Primärbedarf: Bedarf an Endprodukten (aus Absatzplanung)",
+                        "Sekundärbedarf: Bedarf an Rohstoffen, Baugruppen, Teilen",
+                        "Tertiärbedarf: Bedarf an Hilfs- und Betriebsstoffen",
+                        "Bruttobedarf: Gesamtbedarf ohne Bestandsberücksichtigung",
+                        "Nettobedarf: Bruttobedarf minus Lagerbestand"
+                    ]
+                },
+                quiz: {
+                    type: "multipleChoice",
+                    scenario: "Ein Fahrradhersteller plant, 500 Fahrräder zu produzieren. Jedes Fahrrad benötigt 2 Räder, 1 Rahmen und 1 Lenker.",
+                    question: "Was ist der Sekundärbedarf an Rädern?",
+                    options: ["500 Räder", "1.000 Räder", "2.000 Räder", "250 Räder"],
+                    correctIndex: 1,
+                    explanation: "Sekundärbedarf = Primärbedarf × Stücklistenkoeffizient = 500 × 2 = 1.000 Räder"
+                }
+            },
+            {
+                id: 8,
+                title: "Nettobedarf berechnen",
+                description: "Von Brutto zu Netto",
+                icon: "🧮",
+                category: "mrp",
+                difficulty: 2,
+                reward: 150,
+                theory: {
+                    title: "Nettobedarf-Berechnung",
+                    content: "Der Nettobedarf berücksichtigt verfügbare Bestände und offene Bestellungen.",
+                    formula: "Nettobedarf = Bruttobedarf - Lagerbestand - offene Bestellungen + Sicherheitsbestand",
+                    variables: [
+                        "Bruttobedarf: Gesamtbedarf einer Periode",
+                        "Lagerbestand: Aktuell verfügbare Menge",
+                        "Offene Bestellungen: Erwartete Zugänge",
+                        "Sicherheitsbestand: Mindestbestand"
+                    ]
+                },
+                quiz: {
+                    type: "calculation",
+                    scenario: "Bruttobedarf: 1.000 Stück, Lagerbestand: 300 Stück, Offene Bestellungen: 200 Stück, Sicherheitsbestand: 100 Stück.",
+                    question: "Wie hoch ist der Nettobedarf?",
+                    answer: 600,
+                    tolerance: 0,
+                    hint: "Nettobedarf = 1000 - 300 - 200 + 100"
+                }
+            },
+            {
+                id: 9,
+                title: "Stücklisten verstehen",
+                description: "Lerne die Produktstruktur kennen",
+                icon: "🔧",
+                category: "mrp",
+                difficulty: 2,
+                reward: 150,
+                theory: {
+                    title: "Stücklisten & Produktstruktur",
+                    content: "Stücklisten beschreiben die Zusammensetzung von Produkten aus Baugruppen und Einzelteilen.",
+                    formula: "Produktionskoeffizient: aij = Menge von Teil j für 1 Einheit von Produkt i",
+                    variables: [
+                        "Mengenstückliste: Einfache Auflistung aller Teile",
+                        "Strukturstückliste: Zeigt Fertigungsstufen",
+                        "Baukastenstückliste: Zeigt nur direkte Komponenten",
+                        "Gozinto-Graph: Grafische Darstellung der Produktstruktur"
+                    ]
+                },
+                quiz: {
+                    type: "multipleChoice",
+                    scenario: "Ein Tisch (T) besteht aus 1 Platte (P) und 4 Beinen (B). Jedes Bein besteht aus 2 Teilen A und 1 Teil C.",
+                    question: "Wie viele Teile A werden für einen Tisch benötigt?",
+                    options: ["2 Teile A", "4 Teile A", "8 Teile A", "1 Teil A"],
+                    correctIndex: 2,
+                    explanation: "4 Beine × 2 Teile A pro Bein = 8 Teile A"
+                }
+            },
+            // Durchlaufterminierung
+            {
+                id: 10,
+                title: "Vorwärtsterminierung",
+                description: "Früheste Start- und Endtermine",
+                icon: "⏱️",
+                category: "terminierung",
+                difficulty: 2,
+                reward: 150,
+                theory: {
+                    title: "Durchlaufterminierung",
+                    content: "Die Durchlaufterminierung bestimmt Start- und Endtermine für Fertigungsaufträge.",
+                    formula: "Durchlaufzeit = Rüstzeit + Bearbeitungszeit + Transportzeit + Liegezeit",
+                    variables: [
+                        "Vorwärtsterminierung: Vom Starttermin zum frühesten Endtermin",
+                        "Rückwärtsterminierung: Vom Endtermin zum spätesten Starttermin",
+                        "Pufferzeit: Differenz zwischen frühestem und spätestem Termin"
+                    ]
+                },
+                quiz: {
+                    type: "calculation",
+                    scenario: "Ein Auftrag startet am Tag 1. Rüstzeit: 0,5 Tage, Bearbeitungszeit: 2 Tage, Transport: 0,5 Tage, Liegezeit: 1 Tag.",
+                    question: "An welchem Tag ist der Auftrag frühestens fertig?",
+                    answer: 5,
+                    tolerance: 0,
+                    hint: "Addiere alle Zeiten zum Starttag: 1 + 0,5 + 2 + 0,5 + 1 = 5"
+                }
+            },
+            {
+                id: 11,
+                title: "Kapazitätsabgleich",
+                description: "Finde den Engpass",
+                icon: "⚡",
+                category: "terminierung",
+                difficulty: 3,
+                reward: 200,
+                theory: {
+                    title: "Kapazitätsplanung",
+                    content: "Die Kapazitätsplanung gleicht Kapazitätsbedarf und -angebot ab.",
+                    formula: "Kapazitätsauslastung = Kapazitätsbedarf / Kapazitätsangebot × 100%",
+                    variables: [
+                        "Kapazitätsangebot: Verfügbare Produktionszeit",
+                        "Kapazitätsbedarf: Benötigte Zeit für alle Aufträge",
+                        "Engpass: Arbeitsplatz mit höchster Auslastung (>100%)",
+                        "Maßnahmen: Überstunden, Zusatzschichten, Auftragsverlagerung"
+                    ]
+                },
+                quiz: {
+                    type: "calculation",
+                    scenario: "Maschine A hat ein Kapazitätsangebot von 160 Stunden pro Woche. Der Kapazitätsbedarf für alle geplanten Aufträge beträgt 200 Stunden.",
+                    question: "Wie hoch ist die Kapazitätsauslastung in Prozent?",
+                    answer: 125,
+                    tolerance: 0,
+                    hint: "200 / 160 × 100 = ?"
+                }
+            },
+            // Nachhaltigkeit
+            {
+                id: 12,
+                title: "Kreislaufwirtschaft",
+                description: "Verstehe nachhaltige Produktion",
+                icon: "♻️",
+                category: "nachhaltigkeit",
+                difficulty: 1,
+                reward: 100,
+                theory: {
+                    title: "Kreislaufwirtschaft",
+                    content: "Die Kreislaufwirtschaft zielt darauf ab, Ressourcen effizient zu nutzen und Abfall zu minimieren.",
+                    formula: "Linear: Take → Make → Dispose\nZirkulär: Reduce → Reuse → Recycle",
+                    variables: [
+                        "Reduce: Ressourcenverbrauch reduzieren",
+                        "Reuse: Produkte wiederverwenden",
+                        "Recycle: Materialien recyceln",
+                        "Recover: Energie zurückgewinnen"
+                    ]
+                },
+                quiz: {
+                    type: "multipleChoice",
+                    scenario: "Ein Unternehmen möchte seine Produktion nachhaltiger gestalten und hat verschiedene Optionen.",
+                    question: "Welche Maßnahme folgt dem Kreislaufwirtschaftsprinzip am besten?",
+                    options: [
+                        "Produkte so designen, dass Komponenten wiederverwendet werden können",
+                        "Billigere Einwegmaterialien verwenden",
+                        "Produktion ins Ausland verlagern",
+                        "Mehr Lagerbestand aufbauen"
+                    ],
+                    correctIndex: 0,
+                    explanation: "Design for Reuse ist ein Kernprinzip der Kreislaufwirtschaft - Produkte werden so gestaltet, dass Komponenten am Ende des Lebenszyklus wiederverwendet werden können."
+                }
+            },
+            {
+                id: 13,
+                title: "Green Supply Chain",
+                description: "Nachhaltige Lieferketten",
+                icon: "🌍",
+                category: "nachhaltigkeit",
+                difficulty: 2,
+                reward: 150,
+                theory: {
+                    title: "Green Supply Chain Management",
+                    content: "GSCM integriert Umweltaspekte in alle Bereiche der Lieferkette.",
+                    formula: "Triple Bottom Line: People - Planet - Profit",
+                    variables: [
+                        "Grüne Beschaffung: Nachhaltige Lieferantenauswahl",
+                        "Grüne Produktion: Ressourceneffiziente Fertigung",
+                        "Grüne Distribution: CO2-armer Transport",
+                        "Reverse Logistics: Rücknahme und Recycling"
+                    ]
+                },
+                quiz: {
+                    type: "multipleChoice",
+                    scenario: "Ein Unternehmen analysiert seine CO2-Emissionen. 60% entstehen beim Transport, 30% in der Produktion, 10% in der Verwaltung.",
+                    question: "Wo sollte die Nachhaltigkeitsstrategie primär ansetzen?",
+                    options: ["Verwaltung digitalisieren", "Transportlogistik optimieren", "Büromaterial reduzieren", "Mehr Mitarbeiter einstellen"],
+                    correctIndex: 1,
+                    explanation: "Mit 60% der Emissionen bietet die Transportlogistik das größte Einsparpotenzial - z.B. durch Routenoptimierung, Elektrofahrzeuge oder Bündelung von Lieferungen."
+                }
+            },
+            // Fortgeschrittene Themen
+            {
+                id: 14,
+                title: "PPS-Systeme",
+                description: "Produktionsplanung & Steuerung",
+                icon: "💻",
+                category: "pps",
+                difficulty: 2,
+                reward: 150,
+                theory: {
+                    title: "PPS-Systeme",
+                    content: "PPS-Systeme (Produktionsplanung und -steuerung) koordinieren den gesamten Produktionsprozess.",
+                    formula: "Planungsebenen:\nStrategisch → Taktisch → Operativ",
+                    variables: [
+                        "MRP I: Material Requirements Planning",
+                        "MRP II: Manufacturing Resource Planning",
+                        "ERP: Enterprise Resource Planning",
+                        "APS: Advanced Planning and Scheduling"
+                    ]
+                },
+                quiz: {
+                    type: "multipleChoice",
+                    scenario: "Ein Unternehmen nutzt ein System, das Materialbedarfe aus dem Produktionsprogramm ableitet und Stücklisten sowie Lagerbestände berücksichtigt.",
+                    question: "Um welches Planungskonzept handelt es sich?",
+                    options: ["ABC-Analyse", "MRP (Material Requirements Planning)", "Kanban", "SWOT-Analyse"],
+                    correctIndex: 1,
+                    explanation: "MRP (Material Requirements Planning) ermittelt aus dem Primärbedarf über Stücklisten den Sekundärbedarf und berücksichtigt dabei vorhandene Bestände."
+                }
+            },
+            {
+                id: 15,
+                title: "Dynamische Losgrößen",
+                description: "Wagner-Whitin & Co.",
+                icon: "📉",
+                category: "losgröße",
+                difficulty: 3,
+                reward: 250,
+                theory: {
+                    title: "Dynamische Losgrößenverfahren",
+                    content: "Dynamische Verfahren berücksichtigen schwankende Bedarfe über mehrere Perioden.",
+                    formula: "Statisch: Andler (konstanter Bedarf)\nDynamisch: Wagner-Whitin, Silver-Meal, Part-Period",
+                    variables: [
+                        "Wagner-Whitin: Optimal, aber rechenaufwendig",
+                        "Silver-Meal: Minimiert durchschnittliche Kosten pro Periode",
+                        "Gleitende wirtschaftliche Losgröße: Heuristik",
+                        "Part-Period-Balancing: Lager- und Rüstkosten ausgleichen"
+                    ]
+                },
+                quiz: {
+                    type: "multipleChoice",
+                    scenario: "Der Bedarf schwankt stark: Monat 1: 100, Monat 2: 50, Monat 3: 200, Monat 4: 30.",
+                    question: "Welches Losgrößenverfahren ist hier besser geeignet als die Andler-Formel?",
+                    options: [
+                        "Andler-Formel ist immer optimal",
+                        "Wagner-Whitin-Algorithmus",
+                        "ABC-Analyse",
+                        "FIFO-Verfahren"
+                    ],
+                    correctIndex: 1,
+                    explanation: "Bei stark schwankenden Bedarfen sind dynamische Verfahren wie Wagner-Whitin besser geeignet, da sie die Bedarfsschwankungen berücksichtigen."
+                }
+            }
+        ];
+
+        // Encyclopedia Data
+        const encyclopediaTopics = [
+            {
+                id: "andler",
+                title: "Andler-Formel (EOQ)",
+                icon: "📊",
+                content: `
+                    <h3>Die Andler-Formel</h3>
+                    <p>Die Andler-Formel (auch Economic Order Quantity, EOQ) berechnet die <strong>optimale Losgröße</strong>, bei der die Summe aus Lager- und Rüstkosten minimal ist.</p>
+
+                    <div class="formula-box">
+                        <div class="formula">q* = √(2 × D × K / h)</div>
+                        <div class="variable-list">
+                            <p><strong>q*</strong> = Optimale Losgröße</p>
+                            <p><strong>D</strong> = Jahresbedarf (Stück/Jahr)</p>
+                            <p><strong>K</strong> = Rüst-/Bestellkosten pro Auftrag (€)</p>
+                            <p><strong>h</strong> = Lagerhaltungskosten pro Stück und Jahr (€)</p>
+                        </div>
+                    </div>
+
+                    <h4>Wichtige Zusammenhänge:</h4>
+                    <ul>
+                        <li>Bei q* sind Lagerkosten = Rüstkosten</li>
+                        <li>Gesamtkosten: K<sub>ges</sub> = √(2 × D × K × h)</li>
+                        <li>Bestellhäufigkeit: n = D / q*</li>
+                    </ul>
+
+                    <h4>Prüfungsrelevante Hinweise:</h4>
+                    <ul>
+                        <li>Voraussetzung: konstanter Bedarf</li>
+                        <li>Bei schwankendem Bedarf → dynamische Verfahren</li>
+                        <li>Lagerkostensatz oft als Prozent vom Warenwert</li>
+                    </ul>
+                `
+            },
+            {
+                id: "abc",
+                title: "ABC-Analyse",
+                icon: "🔤",
+                content: `
+                    <h3>ABC-Analyse</h3>
+                    <p>Die ABC-Analyse klassifiziert Artikel nach ihrer <strong>wertmäßigen Bedeutung</strong>. Sie basiert auf dem Pareto-Prinzip (80/20-Regel).</p>
+
+                    <div class="formula-box">
+                        <div class="formula">A: 70-80% Wert | 10-20% Menge<br>
+                        B: 15-20% Wert | 20-30% Menge<br>
+                        C: 5-10% Wert | 50-70% Menge</div>
+                    </div>
+
+                    <h4>Dispositionsstrategien:</h4>
+                    <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+                        <tr style="background: var(--bg-card-light);">
+                            <th style="padding: 10px; text-align: left;">Klasse</th>
+                            <th style="padding: 10px; text-align: left;">Strategie</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border-top: 1px solid var(--bg-card-light);">A-Artikel</td>
+                            <td style="padding: 10px; border-top: 1px solid var(--bg-card-light);">Intensive Betreuung, exakte Bedarfsermittlung, niedrige Bestände</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border-top: 1px solid var(--bg-card-light);">B-Artikel</td>
+                            <td style="padding: 10px; border-top: 1px solid var(--bg-card-light);">Mittlere Betreuung, programmgesteuerte Disposition</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border-top: 1px solid var(--bg-card-light);">C-Artikel</td>
+                            <td style="padding: 10px; border-top: 1px solid var(--bg-card-light);">Vereinfachte Betreuung, hohe Bestände, automatische Disposition</td>
+                        </tr>
+                    </table>
+                `
+            },
+            {
+                id: "xyz",
+                title: "XYZ-Analyse",
+                icon: "📈",
+                content: `
+                    <h3>XYZ-Analyse</h3>
+                    <p>Die XYZ-Analyse klassifiziert Artikel nach der <strong>Vorhersagbarkeit ihres Verbrauchs</strong>.</p>
+
+                    <div class="formula-box">
+                        <div class="formula">Variationskoeffizient V = σ / μ × 100%</div>
+                        <div class="variable-list">
+                            <p><strong>σ</strong> = Standardabweichung des Verbrauchs</p>
+                            <p><strong>μ</strong> = Mittelwert des Verbrauchs</p>
+                        </div>
+                    </div>
+
+                    <h4>Klassifikation:</h4>
+                    <ul>
+                        <li><strong>X-Teile (V < 25%):</strong> Konstanter Verbrauch, sehr gut planbar</li>
+                        <li><strong>Y-Teile (V 25-50%):</strong> Schwankender Verbrauch, bedingt planbar</li>
+                        <li><strong>Z-Teile (V > 50%):</strong> Unregelmäßiger Verbrauch, schwer planbar</li>
+                    </ul>
+
+                    <h4>ABC/XYZ-Kombination:</h4>
+                    <p>Die Kombination ergibt 9 Kategorien für optimale Dispositionsstrategien:</p>
+                    <ul>
+                        <li><strong>AX/BX:</strong> Just-in-Time möglich</li>
+                        <li><strong>AZ/BZ:</strong> Sicherheitsbestand nötig</li>
+                        <li><strong>CX:</strong> Automatische Bestellung</li>
+                        <li><strong>CZ:</strong> Hoher Bestand oder Auslauf prüfen</li>
+                    </ul>
+                `
+            },
+            {
+                id: "mrp",
+                title: "MRP & Bedarfsplanung",
+                icon: "📦",
+                content: `
+                    <h3>Material Requirements Planning (MRP)</h3>
+                    <p>MRP ermittelt aus dem Produktionsprogramm den Materialbedarf unter Berücksichtigung von Stücklisten und Beständen.</p>
+
+                    <h4>Bedarfsarten:</h4>
+                    <div class="formula-box">
+                        <div class="formula">Primärbedarf → Sekundärbedarf → Tertiärbedarf</div>
+                    </div>
+                    <ul>
+                        <li><strong>Primärbedarf:</strong> Endprodukte (aus Absatzplan)</li>
+                        <li><strong>Sekundärbedarf:</strong> Rohstoffe, Teile, Baugruppen</li>
+                        <li><strong>Tertiärbedarf:</strong> Hilfs- und Betriebsstoffe</li>
+                    </ul>
+
+                    <h4>Nettobedarf-Berechnung:</h4>
+                    <div class="formula-box">
+                        <div class="formula">Nettobedarf = Bruttobedarf - Lagerbestand - offene Bestellungen + Sicherheitsbestand</div>
+                    </div>
+
+                    <h4>Bedarfsermittlung:</h4>
+                    <ul>
+                        <li><strong>Programmgesteuert:</strong> Exakt über Stücklisten (für A/B-Teile)</li>
+                        <li><strong>Verbrauchsgesteuert:</strong> Prognose aus Vergangenheit (für C-Teile)</li>
+                    </ul>
+                `
+            },
+            {
+                id: "terminierung",
+                title: "Durchlaufterminierung",
+                icon: "⏱️",
+                content: `
+                    <h3>Durchlaufterminierung</h3>
+                    <p>Bestimmt Start- und Endtermine für Fertigungsaufträge.</p>
+
+                    <div class="formula-box">
+                        <div class="formula">Durchlaufzeit = Rüstzeit + Bearbeitungszeit + Transportzeit + Liegezeit</div>
+                    </div>
+
+                    <h4>Terminierungsarten:</h4>
+                    <ul>
+                        <li><strong>Vorwärtsterminierung:</strong> Vom Starttermin → frühester Endtermin</li>
+                        <li><strong>Rückwärtsterminierung:</strong> Vom Endtermin → spätester Starttermin</li>
+                    </ul>
+
+                    <h4>Pufferzeit:</h4>
+                    <div class="formula-box">
+                        <div class="formula">Puffer = Spätester Starttermin - Frühester Starttermin</div>
+                    </div>
+                    <p>Aufträge ohne Puffer liegen auf dem <strong>kritischen Pfad</strong>!</p>
+
+                    <h4>Kapazitätsplanung:</h4>
+                    <div class="formula-box">
+                        <div class="formula">Auslastung = Kapazitätsbedarf / Kapazitätsangebot × 100%</div>
+                    </div>
+                    <p>Bei Auslastung > 100% → Engpass → Maßnahmen nötig</p>
+                `
+            },
+            {
+                id: "nachhaltigkeit",
+                title: "Nachhaltige Produktion",
+                icon: "🌱",
+                content: `
+                    <h3>Nachhaltiges Produktionsmanagement</h3>
+                    <p>Integration von ökologischen, ökonomischen und sozialen Aspekten in die Produktion.</p>
+
+                    <h4>Triple Bottom Line:</h4>
+                    <div class="formula-box">
+                        <div class="formula">People - Planet - Profit</div>
+                    </div>
+
+                    <h4>Kreislaufwirtschaft:</h4>
+                    <ul>
+                        <li><strong>Linear:</strong> Take → Make → Dispose</li>
+                        <li><strong>Zirkulär:</strong> Reduce → Reuse → Recycle → Recover</li>
+                    </ul>
+
+                    <h4>Green Supply Chain Management:</h4>
+                    <ul>
+                        <li>Grüne Beschaffung (nachhaltige Lieferanten)</li>
+                        <li>Grüne Produktion (Ressourceneffizienz)</li>
+                        <li>Grüne Distribution (CO₂-armer Transport)</li>
+                        <li>Reverse Logistics (Rücknahme, Recycling)</li>
+                    </ul>
+
+                    <h4>Wichtige Konzepte:</h4>
+                    <ul>
+                        <li>Life Cycle Assessment (LCA)</li>
+                        <li>Carbon Footprint</li>
+                        <li>Design for Environment</li>
+                        <li>Digitaler Produktpass (DPP)</li>
+                    </ul>
+                `
+            },
+            {
+                id: "pps",
+                title: "PPS-Systeme",
+                icon: "💻",
+                content: `
+                    <h3>Produktionsplanung und -steuerung</h3>
+                    <p>PPS-Systeme koordinieren den gesamten Produktionsprozess von der Planung bis zur Durchführung.</p>
+
+                    <h4>Planungshierarchie:</h4>
+                    <div class="formula-box">
+                        <div class="formula">Strategisch → Taktisch → Operativ</div>
+                    </div>
+
+                    <h4>Systemevolution:</h4>
+                    <ul>
+                        <li><strong>MRP I:</strong> Material Requirements Planning (Materialbedarfsplanung)</li>
+                        <li><strong>MRP II:</strong> Manufacturing Resource Planning (+ Kapazitäten)</li>
+                        <li><strong>ERP:</strong> Enterprise Resource Planning (unternehmensweite Integration)</li>
+                        <li><strong>APS:</strong> Advanced Planning and Scheduling (Optimierung)</li>
+                    </ul>
+
+                    <h4>Push vs. Pull:</h4>
+                    <ul>
+                        <li><strong>Push (MRP):</strong> Zentrale Planung, Produktion nach Plan</li>
+                        <li><strong>Pull (Kanban):</strong> Dezentral, Produktion nach Bedarf</li>
+                    </ul>
+
+                    <h4>Sukzessivplanung:</h4>
+                    <ol>
+                        <li>Produktionsprogrammplanung</li>
+                        <li>Materialbedarfsplanung</li>
+                        <li>Termin- und Kapazitätsplanung</li>
+                        <li>Auftragsfreigabe</li>
+                        <li>Auftragsüberwachung</li>
+                    </ol>
+                `
+            }
+        ];
+
+        // Achievements Data
+        const achievements = [
+            { id: "first_win", name: "Erster Erfolg", desc: "Schließe deine erste Challenge ab", icon: "🌟", condition: (s) => s.completedChallenges.length >= 1 },
+            { id: "five_streak", name: "Feuerwerk", desc: "Erreiche eine 5er-Serie", icon: "🔥", condition: (s) => s.streak >= 5 },
+            { id: "andler_master", name: "Andler-Meister", desc: "Löse alle Losgrößen-Challenges", icon: "📊", condition: (s) => challenges.filter(c => c.category === "losgröße").every(c => s.completedChallenges.includes(c.id)) },
+            { id: "abc_expert", name: "ABC-Experte", desc: "Löse alle ABC/XYZ-Challenges", icon: "🔤", condition: (s) => challenges.filter(c => c.category === "abc").every(c => s.completedChallenges.includes(c.id)) },
+            { id: "mrp_pro", name: "MRP-Profi", desc: "Löse alle MRP-Challenges", icon: "📦", condition: (s) => challenges.filter(c => c.category === "mrp").every(c => s.completedChallenges.includes(c.id)) },
+            { id: "time_lord", name: "Zeit-Lord", desc: "Löse alle Terminierungs-Challenges", icon: "⏱️", condition: (s) => challenges.filter(c => c.category === "terminierung").every(c => s.completedChallenges.includes(c.id)) },
+            { id: "green_hero", name: "Grüner Held", desc: "Löse alle Nachhaltigkeits-Challenges", icon: "🌱", condition: (s) => challenges.filter(c => c.category === "nachhaltigkeit").every(c => s.completedChallenges.includes(c.id)) },
+            { id: "point_collector", name: "Punktesammler", desc: "Erreiche 1000 Punkte", icon: "⭐", condition: (s) => s.points >= 1000 },
+            { id: "level_5", name: "Aufsteiger", desc: "Erreiche Level 5", icon: "📈", condition: (s) => s.level >= 5 },
+            { id: "half_done", name: "Halbzeit", desc: "Schließe 50% der Challenges ab", icon: "🎯", condition: (s) => s.completedChallenges.length >= Math.floor(challenges.length / 2) },
+            { id: "completionist", name: "Perfektionist", desc: "Schließe alle Challenges ab", icon: "🏆", condition: (s) => s.completedChallenges.length >= challenges.length },
+            { id: "factory_master", name: "Fabrikdirektor", desc: "Baue alle Fabrikbereiche auf Level 3 aus", icon: "🏭", condition: (s) => Object.values(s.factory).every(v => v >= 3) }
+        ];
+
+        // Initialize Game
+        function init() {
+            loadState();
+            setupNavigation();
+            if (gameState.playerName) {
+                showGame();
+            }
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem('produktionshero');
+            if (saved) {
+                gameState = JSON.parse(saved);
+            }
+        }
+
+        function saveState() {
+            localStorage.setItem('produktionshero', JSON.stringify(gameState));
+        }
+
+        function startGame() {
+            const name = document.getElementById('playerName').value.trim();
+            if (!name) {
+                showToast('❌', 'Bitte gib deinen Namen ein!');
+                return;
+            }
+            gameState.playerName = name;
+            saveState();
+            showGame();
+        }
+
+        function showGame() {
+            document.getElementById('introScreen').style.display = 'none';
+            document.getElementById('gameHeader').style.display = 'flex';
+            document.getElementById('mainNav').style.display = 'grid';
+            showScreen('challenges');
+            updateUI();
+        }
+
+        function setupNavigation() {
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    showScreen(btn.dataset.screen);
+                });
+            });
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId + 'Screen').classList.add('active');
+
+            if (screenId === 'challenges') renderChallenges();
+            if (screenId === 'encyclopedia') renderEncyclopedia();
+            if (screenId === 'achievements') renderAchievements();
+            if (screenId === 'factory') updateFactoryView();
+        }
+
+        function renderChallenges() {
+            const grid = document.getElementById('challengeGrid');
+            grid.innerHTML = challenges.map(c => `
+                <div class="challenge-card ${gameState.completedChallenges.includes(c.id) ? 'completed' : ''}"
+                     onclick="openChallenge(${c.id})">
+                    <div class="challenge-icon">${c.icon}</div>
+                    <div class="challenge-title">${c.title}</div>
+                    <div class="challenge-desc">${c.description}</div>
+                    <div class="challenge-reward">🎁 ${c.reward} Punkte</div>
+                    <div class="difficulty">
+                        ${Array(3).fill(0).map((_, i) =>
+                            `<span class="difficulty-star ${i < c.difficulty ? '' : 'empty'}">★</span>`
+                        ).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            updateChallengeProgress();
+        }
+
+        function updateChallengeProgress() {
+            const completed = gameState.completedChallenges.length;
+            const total = challenges.length;
+            document.getElementById('challengeProgress').textContent = `${completed}/${total}`;
+            document.getElementById('challengeProgressBar').style.width = `${(completed/total)*100}%`;
+        }
+
+        function openChallenge(id) {
+            const challenge = challenges.find(c => c.id === id);
+            if (!challenge) return;
+
+            const isCompleted = gameState.completedChallenges.includes(id);
+
+            document.getElementById('modalTitle').innerHTML = `${challenge.icon} ${challenge.title}`;
+
+            let html = `
+                <div class="theory-box">
+                    <div class="theory-title">📖 ${challenge.theory.title}</div>
+                    <p>${challenge.theory.content}</p>
+                    <div class="formula-box">
+                        <div class="formula">${challenge.theory.formula.replace(/\n/g, '<br>')}</div>
+                        <div class="variable-list">
+                            ${challenge.theory.variables.map(v => `<p>• ${v}</p>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            if (isCompleted) {
+                html += `
+                    <div class="feedback correct">
+                        <div class="feedback-icon">✅</div>
+                        <p>Du hast diese Challenge bereits gemeistert!</p>
+                    </div>
+                    <button class="btn btn-secondary btn-block" onclick="closeModal()" style="margin-top: 15px;">Schließen</button>
+                `;
+            } else {
+                html += `
+                    <div class="quiz-scenario">
+                        <div class="scenario-title">📋 Szenario:</div>
+                        <p>${challenge.quiz.scenario}</p>
+                    </div>
+                    <div class="quiz-question">${challenge.quiz.question}</div>
+                `;
+
+                if (challenge.quiz.type === 'calculation') {
+                    html += `
+                        <div class="input-group">
+                            <input type="number" class="input-field" id="quizAnswer" placeholder="Deine Antwort...">
+                            <div class="input-hint">💡 Tipp: ${challenge.quiz.hint}</div>
+                        </div>
+                        <div id="quizFeedback" class="feedback"></div>
+                        <button class="btn btn-primary btn-block" onclick="checkCalculation(${id})" style="margin-top: 15px;">
+                            ✓ Antwort prüfen
+                        </button>
+                    `;
+                } else if (challenge.quiz.type === 'multipleChoice') {
+                    html += `
+                        <div class="options-grid" id="optionsGrid">
+                            ${challenge.quiz.options.map((opt, i) => `
+                                <button class="option-btn" data-index="${i}" onclick="selectOption(this, ${id})">
+                                    ${opt}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <div id="quizFeedback" class="feedback"></div>
+                        <button class="btn btn-primary btn-block" id="checkBtn" onclick="checkMultipleChoice(${id})" style="margin-top: 15px; display: none;">
+                            ✓ Antwort prüfen
+                        </button>
+                    `;
+                }
+            }
+
+            document.getElementById('modalBody').innerHTML = html;
+            document.getElementById('challengeModal').classList.add('active');
+        }
+
+        function selectOption(btn, challengeId) {
+            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            document.getElementById('checkBtn').style.display = 'block';
+        }
+
+        function checkCalculation(id) {
+            const challenge = challenges.find(c => c.id === id);
+            const answer = parseFloat(document.getElementById('quizAnswer').value);
+            const feedback = document.getElementById('quizFeedback');
+
+            if (isNaN(answer)) {
+                showToast('❌', 'Bitte gib eine Zahl ein!');
+                return;
+            }
+
+            const correct = Math.abs(answer - challenge.quiz.answer) <= challenge.quiz.tolerance;
+
+            if (correct) {
+                completeChallenge(id, challenge.reward);
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = `
+                    <div class="feedback-icon celebrate">🎉</div>
+                    <p><strong>Richtig!</strong> Die korrekte Antwort ist ${challenge.quiz.answer}.</p>
+                    <p>+${challenge.reward} Punkte!</p>
+                `;
+            } else {
+                gameState.streak = 0;
+                saveState();
+                updateUI();
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = `
+                    <div class="feedback-icon">❌</div>
+                    <p><strong>Leider falsch.</strong> Die richtige Antwort wäre ${challenge.quiz.answer}.</p>
+                    <p>Tipp: ${challenge.quiz.hint}</p>
+                `;
+            }
+        }
+
+        function checkMultipleChoice(id) {
+            const challenge = challenges.find(c => c.id === id);
+            const selected = document.querySelector('.option-btn.selected');
+            const feedback = document.getElementById('quizFeedback');
+
+            if (!selected) {
+                showToast('❌', 'Bitte wähle eine Antwort!');
+                return;
+            }
+
+            const selectedIndex = parseInt(selected.dataset.index);
+            const correct = selectedIndex === challenge.quiz.correctIndex;
+
+            document.querySelectorAll('.option-btn').forEach((btn, i) => {
+                btn.disabled = true;
+                if (i === challenge.quiz.correctIndex) {
+                    btn.classList.add('correct');
+                } else if (i === selectedIndex && !correct) {
+                    btn.classList.add('incorrect');
+                }
+            });
+
+            if (correct) {
+                completeChallenge(id, challenge.reward);
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = `
+                    <div class="feedback-icon celebrate">🎉</div>
+                    <p><strong>Richtig!</strong> ${challenge.quiz.explanation}</p>
+                    <p>+${challenge.reward} Punkte!</p>
+                `;
+            } else {
+                gameState.streak = 0;
+                saveState();
+                updateUI();
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = `
+                    <div class="feedback-icon">❌</div>
+                    <p><strong>Leider falsch.</strong> ${challenge.quiz.explanation}</p>
+                `;
+            }
+        }
+
+        function completeChallenge(id, reward) {
+            if (!gameState.completedChallenges.includes(id)) {
+                gameState.completedChallenges.push(id);
+                gameState.points += reward;
+                gameState.streak++;
+
+                // Bonus für Serie
+                if (gameState.streak >= 3) {
+                    const bonus = 50 * gameState.streak;
+                    gameState.points += bonus;
+                    showToast('🔥', `${gameState.streak}er-Serie! +${bonus} Bonus!`);
+                }
+
+                // Level-Up prüfen
+                const newLevel = Math.floor(gameState.points / 500) + 1;
+                if (newLevel > gameState.level) {
+                    gameState.level = newLevel;
+                    showToast('🎉', `Level Up! Du bist jetzt Level ${newLevel}!`);
+                    upgradeFactory();
+                }
+
+                // Achievements prüfen
+                checkAchievements();
+
+                saveState();
+                updateUI();
+                renderChallenges();
+            }
+        }
+
+        function upgradeFactory() {
+            const areas = ['warehouse', 'production', 'planning', 'sustainability'];
+            const area = areas[Math.floor(Math.random() * areas.length)];
+            if (gameState.factory[area] < 5) {
+                gameState.factory[area]++;
+                const names = { warehouse: 'Lager', production: 'Produktion', planning: 'Planung', sustainability: 'Nachhaltigkeit' };
+                showToast('🏭', `${names[area]} auf Stufe ${gameState.factory[area]} ausgebaut!`);
+            }
+            saveState();
+        }
+
+        function checkAchievements() {
+            achievements.forEach(a => {
+                if (!gameState.achievements.includes(a.id) && a.condition(gameState)) {
+                    gameState.achievements.push(a.id);
+                    showToast(a.icon, `Achievement: ${a.name}!`);
+                }
+            });
+            saveState();
+        }
+
+        function closeModal() {
+            document.getElementById('challengeModal').classList.remove('active');
+        }
+
+        function renderEncyclopedia() {
+            const list = document.getElementById('encyclopediaList');
+            list.innerHTML = encyclopediaTopics.map(t => `
+                <div class="topic-card" onclick="openEncTopic('${t.id}')">
+                    <div class="topic-header">
+                        <span class="topic-icon">${t.icon}</span>
+                        <span class="topic-title">${t.title}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openEncTopic(id) {
+            const topic = encyclopediaTopics.find(t => t.id === id);
+            if (!topic) return;
+
+            document.getElementById('encModalTitle').innerHTML = `${topic.icon} ${topic.title}`;
+            document.getElementById('encModalBody').innerHTML = topic.content;
+            document.getElementById('encyclopediaModal').classList.add('active');
+        }
+
+        function closeEncModal() {
+            document.getElementById('encyclopediaModal').classList.remove('active');
+        }
+
+        function renderAchievements() {
+            const list = document.getElementById('achievementList');
+            list.innerHTML = achievements.map(a => {
+                const unlocked = gameState.achievements.includes(a.id);
+                return `
+                    <div class="achievement ${unlocked ? '' : 'locked'}">
+                        <div class="achievement-icon">${unlocked ? a.icon : '🔒'}</div>
+                        <div class="achievement-info">
+                            <div class="achievement-name">${a.name}</div>
+                            <div class="achievement-desc">${a.desc}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('achievementCount').textContent =
+                `${gameState.achievements.length}/${achievements.length}`;
+        }
+
+        function updateFactoryView() {
+            const names = { warehouse: 'Lager', production: 'Produktion', planning: 'Planung', sustainability: 'Nachhaltigkeit' };
+            const icons = { 1: '📦', 2: '📦📦', 3: '🏢', 4: '🏭', 5: '🏗️' };
+            const prodIcons = { 1: '⚙️', 2: '⚙️⚙️', 3: '🔧', 4: '🏭', 5: '🤖' };
+            const planIcons = { 1: '📊', 2: '📈', 3: '💹', 4: '🖥️', 5: '🤖' };
+            const susIcons = { 1: '🌱', 2: '🌿', 3: '🌳', 4: '♻️', 5: '🌍' };
+
+            const warehouseLvl = gameState.factory.warehouse;
+            const productionLvl = gameState.factory.production;
+            const planningLvl = gameState.factory.planning;
+            const sustainabilityLvl = gameState.factory.sustainability;
+
+            document.querySelector('#warehouseSection .factory-icon').textContent = icons[warehouseLvl];
+            document.getElementById('warehouseStatus').textContent = `Stufe ${warehouseLvl}`;
+            document.getElementById('warehouseStatus').className = 'factory-status ' + (warehouseLvl >= 3 ? 'good' : warehouseLvl >= 2 ? 'warning' : '');
+
+            document.querySelector('#productionSection .factory-icon').textContent = prodIcons[productionLvl];
+            document.getElementById('productionStatus').textContent = `Stufe ${productionLvl}`;
+            document.getElementById('productionStatus').className = 'factory-status ' + (productionLvl >= 3 ? 'good' : productionLvl >= 2 ? 'warning' : '');
+
+            document.querySelector('#planningSection .factory-icon').textContent = planIcons[planningLvl];
+            document.getElementById('planningStatus').textContent = `Stufe ${planningLvl}`;
+            document.getElementById('planningStatus').className = 'factory-status ' + (planningLvl >= 3 ? 'good' : planningLvl >= 2 ? 'warning' : '');
+
+            document.querySelector('#sustainabilitySection .factory-icon').textContent = susIcons[sustainabilityLvl];
+            document.getElementById('sustainabilityStatus').textContent = `Stufe ${sustainabilityLvl}`;
+            document.getElementById('sustainabilityStatus').className = 'factory-status ' + (sustainabilityLvl >= 3 ? 'good' : sustainabilityLvl >= 2 ? 'warning' : '');
+
+            const totalLvl = warehouseLvl + productionLvl + planningLvl + sustainabilityLvl;
+            const maxLvl = 20;
+            document.getElementById('factoryLevel').textContent = `Stufe ${Math.floor(totalLvl / 4)}`;
+
+            const efficiency = (gameState.completedChallenges.length / challenges.length) * 100;
+            const sustainability = (gameState.completedChallenges.filter(id => {
+                const c = challenges.find(ch => ch.id === id);
+                return c && c.category === 'nachhaltigkeit';
+            }).length / challenges.filter(c => c.category === 'nachhaltigkeit').length) * 100 || 0;
+
+            document.getElementById('efficiencyStat').textContent = Math.round(efficiency) + '%';
+            document.getElementById('efficiencyBar').style.width = efficiency + '%';
+            document.getElementById('sustainabilityStat').textContent = Math.round(sustainability) + '%';
+            document.getElementById('sustainabilityBar').style.width = sustainability + '%';
+        }
+
+        function updateUI() {
+            document.getElementById('totalPoints').textContent = gameState.points;
+            document.getElementById('streak').textContent = gameState.streak;
+            document.getElementById('levelBadge').textContent = `Level ${gameState.level}`;
+        }
+
+        function showToast(icon, message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Start the game
+        init();
+    </script>
+</body>
+</html>
