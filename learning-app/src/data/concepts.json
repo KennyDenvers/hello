@@ -1,0 +1,324 @@
+{
+  "concepts": [
+    {
+      "id": "pow_definition",
+      "name": "Definition und Grundbegriffe",
+      "category": "powers",
+      "prerequisites": [],
+      "description": "Eine Potenz ist eine verkürzte Schreibweise für die wiederholte Multiplikation einer Zahl mit sich selbst.",
+      "theory": "Bei einer Potenz aⁿ nennt man:\n• a die Basis\n• n den Exponenten\n• aⁿ den Potenzwert\n\nBeispiel: 2³ = 2 · 2 · 2 = 8\n\nDie Basis wird so oft mit sich selbst multipliziert, wie der Exponent angibt.",
+      "businessContext": "Potenzen sind grundlegend für die Zinseszinsrechnung: Wenn ein Kapital K₀ mit dem Zinssatz r über n Jahre angelegt wird, ergibt sich K₀ · (1+r)ⁿ.",
+      "examples": [
+        {"problem": "2³", "solution": "8", "explanation": "2³ = 2 · 2 · 2 = 8"},
+        {"problem": "5²", "solution": "25", "explanation": "5² = 5 · 5 = 25"},
+        {"problem": "10⁴", "solution": "10000", "explanation": "10⁴ = 10 · 10 · 10 · 10 = 10.000"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 4},
+        "mastery": {"threshold": 0.9, "minAttempts": 5}
+      }
+    },
+    {
+      "id": "pow_zero",
+      "name": "Exponent Null",
+      "category": "powers",
+      "prerequisites": ["pow_definition"],
+      "description": "Jede Zahl (außer 0) hoch 0 ergibt 1.",
+      "theory": "Regel: a⁰ = 1 (für a ≠ 0)\n\nWarum ist das so?\nBetrachte: a³ / a³ = a³⁻³ = a⁰\nAber auch: a³ / a³ = 1\n\nAlso muss a⁰ = 1 sein!\n\nBeispiele:\n• 5⁰ = 1\n• 100⁰ = 1\n• (1,05)⁰ = 1",
+      "businessContext": "Bei t=0 Jahren ist der Zinsfaktor (1+r)⁰ = 1, d.h. das Kapital ist noch unverändert.",
+      "examples": [
+        {"problem": "7⁰", "solution": "1", "explanation": "Jede Zahl hoch 0 ist 1"},
+        {"problem": "(1,05)⁰", "solution": "1", "explanation": "Auch Dezimalzahlen: (1,05)⁰ = 1"},
+        {"problem": "1000⁰", "solution": "1", "explanation": "Egal wie groß die Basis: 1000⁰ = 1"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 3},
+        "mastery": {"threshold": 0.9, "minAttempts": 4}
+      }
+    },
+    {
+      "id": "pow_negative",
+      "name": "Negative Exponenten",
+      "category": "powers",
+      "prerequisites": ["pow_zero"],
+      "description": "Ein negativer Exponent bedeutet 'eins durch' die Potenz mit positivem Exponenten.",
+      "theory": "Regel: a⁻ⁿ = 1/aⁿ\n\nWarum ist das so?\nBetrachte: a² / a⁵ = a²⁻⁵ = a⁻³\nAber auch: a² / a⁵ = a·a / (a·a·a·a·a) = 1/a³\n\nAlso: a⁻³ = 1/a³\n\nBeispiele:\n• 2⁻¹ = 1/2 = 0,5\n• 10⁻² = 1/100 = 0,01\n• 5⁻³ = 1/125",
+      "businessContext": "Negative Exponenten erscheinen bei der Barwertberechnung: PV = FV · (1+r)⁻ⁿ",
+      "examples": [
+        {"problem": "2⁻¹", "solution": "0,5", "explanation": "2⁻¹ = 1/2 = 0,5"},
+        {"problem": "10⁻²", "solution": "0,01", "explanation": "10⁻² = 1/10² = 1/100 = 0,01"},
+        {"problem": "3⁻²", "solution": "1/9", "explanation": "3⁻² = 1/3² = 1/9"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 4},
+        "mastery": {"threshold": 0.9, "minAttempts": 5}
+      }
+    },
+    {
+      "id": "pow_product_rule",
+      "name": "Multiplikationsregel",
+      "category": "powers",
+      "prerequisites": ["pow_definition"],
+      "description": "Bei der Multiplikation von Potenzen mit gleicher Basis werden die Exponenten addiert.",
+      "theory": "Regel: aᵐ · aⁿ = aᵐ⁺ⁿ\n\nWarum ist das so?\na³ · a² = (a·a·a) · (a·a) = a⁵ = a³⁺²\n\nBeispiele:\n• 2³ · 2⁴ = 2⁷\n• x² · x⁵ = x⁷\n• 1,05² · 1,05³ = 1,05⁵",
+      "businessContext": "Wenn Sie 2 Jahre zu 5% und dann weitere 3 Jahre zu 5% anlegen: (1,05)² · (1,05)³ = (1,05)⁵",
+      "examples": [
+        {"problem": "2³ · 2⁴", "solution": "2⁷", "explanation": "Gleiche Basis → Exponenten addieren: 3+4=7"},
+        {"problem": "x⁵ · x³", "solution": "x⁸", "explanation": "x⁵ · x³ = x⁵⁺³ = x⁸"},
+        {"problem": "1,05² · 1,05⁸", "solution": "1,05¹⁰", "explanation": "1,05² · 1,05⁸ = 1,05²⁺⁸ = 1,05¹⁰"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 4},
+        "mastery": {"threshold": 0.9, "minAttempts": 5}
+      }
+    },
+    {
+      "id": "pow_quotient_rule",
+      "name": "Divisionsregel",
+      "category": "powers",
+      "prerequisites": ["pow_product_rule"],
+      "description": "Bei der Division von Potenzen mit gleicher Basis werden die Exponenten subtrahiert.",
+      "theory": "Regel: aᵐ / aⁿ = aᵐ⁻ⁿ\n\nWarum ist das so?\na⁵ / a² = (a·a·a·a·a) / (a·a) = a·a·a = a³ = a⁵⁻²\n\nBeispiele:\n• 3⁵ / 3² = 3³\n• x⁸ / x³ = x⁵\n• 10⁶ / 10⁴ = 10²",
+      "businessContext": "Wenn Sie das Verhältnis zweier Kapitalstände berechnen: K₅/K₂ = K₀·q⁵ / K₀·q² = q³",
+      "examples": [
+        {"problem": "5⁷ / 5⁴", "solution": "5³", "explanation": "Gleiche Basis → Exponenten subtrahieren: 7-4=3"},
+        {"problem": "x¹⁰ / x⁶", "solution": "x⁴", "explanation": "x¹⁰ / x⁶ = x¹⁰⁻⁶ = x⁴"},
+        {"problem": "2⁸ / 2⁸", "solution": "1", "explanation": "2⁸ / 2⁸ = 2⁰ = 1"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 4},
+        "mastery": {"threshold": 0.9, "minAttempts": 5}
+      }
+    },
+    {
+      "id": "pow_power_rule",
+      "name": "Potenz einer Potenz",
+      "category": "powers",
+      "prerequisites": ["pow_product_rule"],
+      "description": "Bei einer Potenz einer Potenz werden die Exponenten multipliziert.",
+      "theory": "Regel: (aᵐ)ⁿ = aᵐ·ⁿ\n\nWarum ist das so?\n(a²)³ = a² · a² · a² = a²⁺²⁺² = a⁶ = a²·³\n\nBeispiele:\n• (2³)² = 2⁶\n• (x⁴)³ = x¹²\n• ((1,05)²)⁵ = (1,05)¹⁰",
+      "businessContext": "Vierteljährliche Verzinsung über 3 Jahre: ((1+r/4)⁴)³ = (1+r/4)¹²",
+      "examples": [
+        {"problem": "(2³)²", "solution": "2⁶", "explanation": "Exponenten multiplizieren: 3·2=6"},
+        {"problem": "(x⁵)⁴", "solution": "x²⁰", "explanation": "(x⁵)⁴ = x⁵·⁴ = x²⁰"},
+        {"problem": "((1,1)²)⁵", "solution": "(1,1)¹⁰", "explanation": "((1,1)²)⁵ = (1,1)²·⁵ = (1,1)¹⁰"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 4},
+        "mastery": {"threshold": 0.9, "minAttempts": 5}
+      }
+    },
+    {
+      "id": "pow_fractional",
+      "name": "Wurzeln als Potenzen",
+      "category": "powers",
+      "prerequisites": ["pow_negative", "pow_power_rule"],
+      "description": "Wurzeln lassen sich als Potenzen mit Bruch-Exponenten schreiben.",
+      "theory": "Regeln:\n• √a = a^(1/2)\n• ³√a = a^(1/3)\n• ⁿ√a = a^(1/n)\n• ⁿ√(aᵐ) = a^(m/n)\n\nWarum ist das so?\n(a^(1/2))² = a^(1/2·2) = a¹ = a\nAlso ist a^(1/2) die Quadratwurzel von a.\n\nBeispiele:\n• √9 = 9^(1/2) = 3\n• ³√8 = 8^(1/3) = 2\n• 16^(3/4) = (⁴√16)³ = 2³ = 8",
+      "businessContext": "Die jährliche Wachstumsrate bei n-facher Verzinsung: r = (Kₙ/K₀)^(1/n) - 1",
+      "examples": [
+        {"problem": "√25", "solution": "5", "explanation": "√25 = 25^(1/2) = 5, da 5² = 25"},
+        {"problem": "8^(1/3)", "solution": "2", "explanation": "8^(1/3) = ³√8 = 2, da 2³ = 8"},
+        {"problem": "16^(1/4)", "solution": "2", "explanation": "16^(1/4) = ⁴√16 = 2, da 2⁴ = 16"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 4},
+        "mastery": {"threshold": 0.9, "minAttempts": 5}
+      }
+    },
+    {
+      "id": "log_definition",
+      "name": "Definition des Logarithmus",
+      "category": "logarithms",
+      "prerequisites": ["pow_definition"],
+      "description": "Der Logarithmus ist die Umkehrfunktion der Potenz: Er gibt den Exponenten an.",
+      "theory": "Definition: log_b(x) = y bedeutet: bʸ = x\n\n'Der Logarithmus von x zur Basis b ist die Zahl, mit der man b potenzieren muss, um x zu erhalten.'\n\nBeispiele:\n• log₂(8) = 3, denn 2³ = 8\n• log₁₀(100) = 2, denn 10² = 100\n• log₅(25) = 2, denn 5² = 25\n\nMerke: Logarithmus und Potenzieren sind Umkehroperationen!",
+      "businessContext": "Mit dem Logarithmus kann man berechnen, wie lange es dauert, bis ein Kapital einen bestimmten Wert erreicht.",
+      "examples": [
+        {"problem": "log₂(8)", "solution": "3", "explanation": "2³ = 8, also log₂(8) = 3"},
+        {"problem": "log₁₀(1000)", "solution": "3", "explanation": "10³ = 1000, also log₁₀(1000) = 3"},
+        {"problem": "log₃(9)", "solution": "2", "explanation": "3² = 9, also log₃(9) = 2"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 4},
+        "mastery": {"threshold": 0.9, "minAttempts": 5}
+      }
+    },
+    {
+      "id": "log_notation",
+      "name": "Schreibweisen",
+      "category": "logarithms",
+      "prerequisites": ["log_definition"],
+      "description": "Es gibt verschiedene Schreibweisen für Logarithmen mit speziellen Basen.",
+      "theory": "Wichtige Schreibweisen:\n\n• log oder lg = log₁₀ (Zehnerlogarithmus)\n• ln = logₑ (natürlicher Logarithmus, e ≈ 2,718)\n• log₂ = Logarithmus zur Basis 2 (in Informatik)\n\nAuf dem Taschenrechner:\n• 'log' = Zehnerlogarithmus\n• 'ln' = natürlicher Logarithmus\n\nBeispiele:\n• lg(100) = log₁₀(100) = 2\n• ln(e) = logₑ(e) = 1\n• ln(e²) = 2",
+      "businessContext": "In der Wirtschaftsmathematik wird oft der natürliche Logarithmus ln verwendet, z.B. bei stetigem Wachstum.",
+      "examples": [
+        {"problem": "lg(10)", "solution": "1", "explanation": "lg = log₁₀, und 10¹ = 10"},
+        {"problem": "ln(e)", "solution": "1", "explanation": "ln = logₑ, und e¹ = e"},
+        {"problem": "lg(1000)", "solution": "3", "explanation": "10³ = 1000, also lg(1000) = 3"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 3},
+        "mastery": {"threshold": 0.9, "minAttempts": 4}
+      }
+    },
+    {
+      "id": "log_special_values",
+      "name": "Besondere Werte",
+      "category": "logarithms",
+      "prerequisites": ["log_notation"],
+      "description": "Bestimmte Logarithmuswerte sollte man auswendig kennen.",
+      "theory": "Wichtige Werte:\n\n• log_b(1) = 0 für alle b, denn b⁰ = 1\n• log_b(b) = 1 für alle b, denn b¹ = b\n• log_b(bⁿ) = n, denn bⁿ = bⁿ\n• ln(1) = 0\n• ln(e) = 1\n• lg(1) = 0\n• lg(10) = 1\n\nAchtung: log(0) und log(negative Zahlen) sind nicht definiert!",
+      "businessContext": "log(1) = 0 bedeutet: Kein Wachstum (Faktor 1) entspricht 0% Änderung in der logarithmischen Skala.",
+      "examples": [
+        {"problem": "log₅(1)", "solution": "0", "explanation": "log_b(1) = 0 für alle Basen, da b⁰ = 1"},
+        {"problem": "log₇(7)", "solution": "1", "explanation": "log_b(b) = 1, da b¹ = b"},
+        {"problem": "ln(e³)", "solution": "3", "explanation": "ln(eⁿ) = n"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 3},
+        "mastery": {"threshold": 0.9, "minAttempts": 4}
+      }
+    },
+    {
+      "id": "log_product_rule",
+      "name": "Produktregel",
+      "category": "logarithms",
+      "prerequisites": ["log_special_values", "pow_product_rule"],
+      "description": "Der Logarithmus eines Produkts ist die Summe der Logarithmen.",
+      "theory": "Regel: log(a · b) = log(a) + log(b)\n\nWarum ist das so?\nWenn log(a) = m und log(b) = n, dann:\na = 10ᵐ und b = 10ⁿ\na · b = 10ᵐ · 10ⁿ = 10ᵐ⁺ⁿ\nAlso: log(a·b) = m + n = log(a) + log(b)\n\nBeispiele:\n• log(2 · 5) = log(2) + log(5) = log(10) = 1\n• ln(3 · 4) = ln(3) + ln(4)\n• log(100 · 1000) = log(100) + log(1000) = 2 + 3 = 5",
+      "businessContext": "Bei der Multiplikation von Wachstumsfaktoren addieren sich die logarithmischen Renditen.",
+      "examples": [
+        {"problem": "lg(2) + lg(5)", "solution": "1", "explanation": "lg(2) + lg(5) = lg(2·5) = lg(10) = 1"},
+        {"problem": "lg(4) + lg(25)", "solution": "2", "explanation": "lg(4) + lg(25) = lg(100) = 2"},
+        {"problem": "ln(e²) + ln(e³)", "solution": "5", "explanation": "ln(e²) + ln(e³) = 2 + 3 = 5 = ln(e⁵)"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 4},
+        "mastery": {"threshold": 0.9, "minAttempts": 5}
+      }
+    },
+    {
+      "id": "log_quotient_rule",
+      "name": "Quotientenregel",
+      "category": "logarithms",
+      "prerequisites": ["log_product_rule"],
+      "description": "Der Logarithmus eines Quotienten ist die Differenz der Logarithmen.",
+      "theory": "Regel: log(a / b) = log(a) - log(b)\n\nWarum ist das so?\nÄhnlich zur Produktregel:\na / b = 10ᵐ / 10ⁿ = 10ᵐ⁻ⁿ\nAlso: log(a/b) = m - n = log(a) - log(b)\n\nBeispiele:\n• log(1000 / 10) = log(1000) - log(10) = 3 - 1 = 2\n• ln(e⁵ / e²) = 5 - 2 = 3\n• log(a/a) = log(a) - log(a) = 0 = log(1) ✓",
+      "businessContext": "Die relative Veränderung ln(K₁/K₀) = ln(K₁) - ln(K₀) gibt die stetige Rendite an.",
+      "examples": [
+        {"problem": "lg(1000) - lg(10)", "solution": "2", "explanation": "lg(1000/10) = lg(100) = 2"},
+        {"problem": "ln(e⁷) - ln(e⁴)", "solution": "3", "explanation": "7 - 4 = 3"},
+        {"problem": "lg(50) - lg(5)", "solution": "1", "explanation": "lg(50/5) = lg(10) = 1"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 4},
+        "mastery": {"threshold": 0.9, "minAttempts": 5}
+      }
+    },
+    {
+      "id": "log_power_rule",
+      "name": "Potenzregel",
+      "category": "logarithms",
+      "prerequisites": ["log_quotient_rule"],
+      "description": "Der Exponent kann als Faktor vor den Logarithmus gezogen werden.",
+      "theory": "Regel: log(aⁿ) = n · log(a)\n\nWarum ist das so?\nlog(aⁿ) = log(a · a · ... · a)  [n mal]\n        = log(a) + log(a) + ... + log(a)  [n mal]\n        = n · log(a)\n\nBeispiele:\n• log(10³) = 3 · log(10) = 3 · 1 = 3\n• ln(e⁵) = 5 · ln(e) = 5 · 1 = 5\n• log(2⁴) = 4 · log(2)",
+      "businessContext": "Diese Regel ist zentral für die Berechnung der Laufzeit: n = ln(Kₙ/K₀) / ln(1+r)",
+      "examples": [
+        {"problem": "lg(10⁵)", "solution": "5", "explanation": "lg(10⁵) = 5 · lg(10) = 5 · 1 = 5"},
+        {"problem": "ln(e⁷)", "solution": "7", "explanation": "ln(e⁷) = 7 · ln(e) = 7 · 1 = 7"},
+        {"problem": "lg(100³)", "solution": "6", "explanation": "lg(100³) = 3 · lg(100) = 3 · 2 = 6"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 4},
+        "mastery": {"threshold": 0.9, "minAttempts": 5}
+      }
+    },
+    {
+      "id": "log_exp_relationship",
+      "name": "Beziehung exp und ln",
+      "category": "logarithms",
+      "prerequisites": ["log_power_rule"],
+      "description": "Exponentialfunktion und natürlicher Logarithmus sind Umkehrfunktionen.",
+      "theory": "Wichtige Beziehungen:\n\n• eˡⁿ⁽ˣ⁾ = x (für x > 0)\n• ln(eˣ) = x\n• a = eˡⁿ⁽ᵃ⁾\n• aˣ = eˣ·ˡⁿ⁽ᵃ⁾\n\nDiese Beziehungen ermöglichen das Umformen zwischen verschiedenen Basen.\n\nBeispiel:\n2³ = e³·ˡⁿ⁽²⁾ ≈ e³·⁰'⁶⁹³ ≈ e²'⁰⁷⁹ ≈ 8",
+      "businessContext": "Die stetige Verzinsung nutzt eʳᵗ statt (1+r)ᵗ. Die Umrechnung erfolgt über ln.",
+      "examples": [
+        {"problem": "eˡⁿ⁽⁵⁾", "solution": "5", "explanation": "e und ln heben sich auf: eˡⁿ⁽ˣ⁾ = x"},
+        {"problem": "ln(e⁴)", "solution": "4", "explanation": "ln und e heben sich auf: ln(eˣ) = x"},
+        {"problem": "eˡⁿ⁽¹⁾", "solution": "1", "explanation": "eˡⁿ⁽¹⁾ = e⁰ = 1"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 4},
+        "mastery": {"threshold": 0.9, "minAttempts": 5}
+      }
+    },
+    {
+      "id": "combined_compound_interest",
+      "name": "Zinseszinsrechnung",
+      "category": "applications",
+      "prerequisites": ["pow_fractional", "log_exp_relationship"],
+      "description": "Anwendung von Potenzen und Logarithmen auf Zinseszinsberechnungen.",
+      "theory": "Grundformel: Kₙ = K₀ · (1+r)ⁿ\n\nWobei:\n• K₀ = Anfangskapital\n• Kₙ = Endkapital nach n Perioden\n• r = Zinssatz pro Periode\n• n = Anzahl der Perioden\n\nUmgestellte Formeln:\n• n = ln(Kₙ/K₀) / ln(1+r)  [Laufzeit]\n• r = (Kₙ/K₀)^(1/n) - 1  [Zinssatz]\n• K₀ = Kₙ / (1+r)ⁿ = Kₙ · (1+r)⁻ⁿ  [Barwert]",
+      "businessContext": "Dies ist DIE zentrale Formel der Finanzmathematik!",
+      "examples": [
+        {"problem": "1000€ zu 5% für 3 Jahre", "solution": "1157,63€", "explanation": "1000 · 1,05³ = 1000 · 1,157625 = 1157,63€"},
+        {"problem": "Verdopplung bei 7%", "solution": "≈10 Jahre", "explanation": "n = ln(2)/ln(1,07) ≈ 10,24 Jahre"},
+        {"problem": "Barwert von 1000€ in 5 Jahren bei 4%", "solution": "821,93€", "explanation": "1000 · 1,04⁻⁵ = 1000 · 0,8219 = 821,93€"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 5},
+        "mastery": {"threshold": 0.9, "minAttempts": 6}
+      }
+    },
+    {
+      "id": "combined_growth_decay",
+      "name": "Wachstum und Zerfall",
+      "category": "applications",
+      "prerequisites": ["combined_compound_interest"],
+      "description": "Exponentielles Wachstum und Zerfall in verschiedenen Kontexten.",
+      "theory": "Allgemeine Formel: N(t) = N₀ · eᵏᵗ\n\noder äquivalent: N(t) = N₀ · aᵗ\n\n• k > 0: Wachstum (Bevölkerung, Inflation)\n• k < 0: Zerfall (Radioaktivität, Abschreibung)\n\nVerdopplungszeit: t₂ = ln(2)/k\nHalbwertszeit: t₁/₂ = ln(2)/|k|\n\nBeispiel Verdopplungszeit:\nBei 5% Wachstum: t₂ = ln(2)/ln(1,05) ≈ 14,2 Jahre\nFaustregel (72er-Regel): 72/5 ≈ 14,4 Jahre",
+      "businessContext": "Wachstumsraten von BIP, Inflation, Marktgrößen; Abschreibungen von Anlagen.",
+      "examples": [
+        {"problem": "Verdopplungszeit bei 10%", "solution": "≈7,3 Jahre", "explanation": "ln(2)/ln(1,10) ≈ 7,27 Jahre (oder 72/10 ≈ 7,2)"},
+        {"problem": "Halbwertszeit bei -8%", "solution": "≈8,3 Jahre", "explanation": "ln(2)/ln(1,08) ≈ 8,31 Jahre"},
+        {"problem": "Wie lange bis 3-fach bei 12%?", "solution": "≈9,7 Jahre", "explanation": "ln(3)/ln(1,12) ≈ 9,69 Jahre"}
+      ],
+      "proficiencyLevels": {
+        "recognition": {"threshold": 0.8, "minAttempts": 2},
+        "comprehension": {"threshold": 0.8, "minAttempts": 3},
+        "application": {"threshold": 0.85, "minAttempts": 5},
+        "mastery": {"threshold": 0.9, "minAttempts": 6}
+      }
+    }
+  ]
+}
